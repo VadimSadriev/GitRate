@@ -8,5 +8,9 @@
     <ProjectReference Include="..\GitRate.Common\GitRate.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>
