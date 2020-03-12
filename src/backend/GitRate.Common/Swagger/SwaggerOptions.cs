@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GitRate.Common.Swagger
+﻿namespace GitRate.Common.Swagger
 {
     public class SwaggerOptions
     {
