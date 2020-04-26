@@ -1,18 +1,19 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace GitRate.Common.Database
 {
-    public abstract class DesignTimeDbContextFactoryBase<TContext>
-        where TContext : DbContext
+    public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
         protected abstract string BasePath { get;}
         private string AspNetCoreEnvironment = "Development";
 
         protected abstract TContext CreateContext(DbContextOptions<TContext> options);
-        
-        public TContext Create(string[] args)
+
+        public TContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(BasePath)
@@ -25,7 +26,7 @@ namespace GitRate.Common.Database
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentException("Connection string is empty");
             
-            Console.WriteLine($"Creating {nameof(TContext)}. Connection string : {connectionString}");
+            Console.WriteLine($"Creating {typeof(TContext).Name}. Connection string: {connectionString}");
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
 
