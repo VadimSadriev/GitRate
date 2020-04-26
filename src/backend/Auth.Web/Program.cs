@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Auth.Persistence;
 using Microsoft.AspNetCore.Hosting;
@@ -18,12 +21,14 @@ namespace Auth.Web
         {
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<AuthContext>();
-
-                context.Database.Migrate();
-            }
+            // using (var scope = host.Services.CreateScope())
+            // {
+            //     var context = scope.ServiceProvider.GetRequiredService<AuthContext>();
+            //
+            //     context.Database.Migrate();
+            // }
+           
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
