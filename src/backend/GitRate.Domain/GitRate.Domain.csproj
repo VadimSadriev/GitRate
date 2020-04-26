@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GitRate.Common\GitRate.Common.csproj" />
+  </ItemGroup>
+
 </Project>
