@@ -1,5 +1,6 @@
 using Auth.Persistence;
 using GitRate.Common.Database;
+using GitRate.Common.Logging;
 using GitRate.Common.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,8 +22,9 @@ namespace Auth.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCustomLogging(Configuration);
             services.AddCustomMvc(Configuration);
-            services.AddDataContext<AuthContext>(Configuration.GetSection("database"));
+            services.AddDataContext<AuthContext>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

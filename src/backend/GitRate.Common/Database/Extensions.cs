@@ -1,4 +1,5 @@
 ﻿using System;
+using GitRate.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,13 +8,12 @@ namespace GitRate.Common.Database
 {
     public static class Extensions
     {
-        public static IServiceCollection AddDataContext<TContext>(this IServiceCollection services, IConfigurationSection dbSection)
+        public static IServiceCollection AddDataContext<TContext>(this IServiceCollection services, IConfiguration configuration)
             where TContext : DbContext
         {
-            if (!dbSection.Exists())
-                throw new ArgumentException("Missing db connection string");
+           var dbSection = configuration.GetSection("Database").CheckExistence();
 
-            return services.AddDbContext<TContext>(x => { x.UseNpgsql(dbSection["connectionString"]); });
+            return services.AddDbContext<TContext>(x => { x.UseNpgsql(dbSection["ConnectionString"]); });
         }
     }
 }

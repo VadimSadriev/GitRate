@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using GitRate.Common.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ namespace GitRate.Common.Swagger
     {
         public static IServiceCollection AddSwaggerDocs(this IServiceCollection services, IConfiguration configuration)
         {
-            var swaggerSection = configuration.GetSection("swagger");
+            var swaggerSection = configuration.GetSection("Swagger").CheckExistence();
 
             var options = new SwaggerOptions();
 
