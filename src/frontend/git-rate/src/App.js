@@ -1,9 +1,10 @@
 import React from 'react';
+import BaseRouter from './routes';
 
 function App() {
   return (
     <React.Fragment>
-      Hi
+      <BaseRouter />
     </React.Fragment>
   );
 }
