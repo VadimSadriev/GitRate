@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{14004070-24B3-4D99-ABDC-D631638CDC18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{14004070-24B3-4D99-ABDC-D631638CDC18}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitRate.Common", "GitRate.Common\GitRate.Common.csproj", "{44579F4E-610E-4D61-9C3D-000F3FEA8F0C}"
 EndProject

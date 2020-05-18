@@ -20,40 +20,40 @@ namespace GitRate.Common.Swagger
             if (!options.Enabled)
                 return services;
 
-            return services.AddSwaggerGen(x =>
-             {
-                 x.SwaggerDoc(options.Name, new OpenApiInfo { Title = options.Title, Version = options.Version });
-                 x.DescribeAllParametersInCamelCase();
+            return services.AddSwaggerGen(swaggerGenOptions =>
+            {
+                swaggerGenOptions.SwaggerDoc(options.Name, new OpenApiInfo { Title = options.Title, Version = options.Version });
+                swaggerGenOptions.DescribeAllParametersInCamelCase();
 
-                 if (options.IncludeSecurity)
-                 {
-                     var openApiSecurityScheme = new OpenApiSecurityScheme
-                     {
-                         Description = "JWT Authorization using the bearer scheme",
-                         Name = "Authorization",
-                         In = ParameterLocation.Header,
-                         Type = SecuritySchemeType.ApiKey,
-                         Scheme = JwtBearerDefaults.AuthenticationScheme,
-                         Reference = new OpenApiReference
-                         {
-                             Type = ReferenceType.SecurityScheme,
-                             Id = JwtBearerDefaults.AuthenticationScheme
-                         }
-                     };
+                if (!options.IncludeSecurity)
+                    return;
 
-                     var security = new OpenApiSecurityRequirement();
-                     security.Add(openApiSecurityScheme, new[] { "Bearer" });
+                var openApiSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization using the bearer scheme",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = JwtBearerDefaults.AuthenticationScheme
+                    }
+                };
 
-                     x.AddSecurityDefinition("Bearer", openApiSecurityScheme);
+                var security = new OpenApiSecurityRequirement();
+                security.Add(openApiSecurityScheme, new[] { "Bearer" });
 
-                     x.AddSecurityRequirement(security);
-                 }
-             });
+                swaggerGenOptions.AddSecurityDefinition("Bearer", openApiSecurityScheme);
+
+                swaggerGenOptions.AddSecurityRequirement(security);
+            });
         }
 
         public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder builder, IConfiguration configuration)
         {
-            var swaggerSection = configuration.GetSection("swagger");
+            var swaggerSection = configuration.GetSection("swagger").CheckExistence();
 
             var options = new SwaggerOptions();
 
@@ -64,13 +64,13 @@ namespace GitRate.Common.Swagger
 
             var routePrefix = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "swagger" : options.RoutePrefix;
 
-            builder.UseSwagger(c => c.RouteTemplate = routePrefix + "/{documentName}/swagger.json");
+            builder.UseSwagger(swaggerOptions => swaggerOptions.RouteTemplate = routePrefix + "/{documentName}/swagger.json");
 
-            return builder.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint($"/{routePrefix}/{options.Name}/swagger.json", options.Title);
-                    c.RoutePrefix = routePrefix;
-                });
+            return builder.UseSwaggerUI(swaggerUIOptions =>
+            {
+                swaggerUIOptions.SwaggerEndpoint($"/{routePrefix}/{options.Name}/swagger.json", options.Title);
+                swaggerUIOptions.RoutePrefix = routePrefix;
+            });
         }
     }
 }

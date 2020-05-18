@@ -2,6 +2,7 @@ using Auth.Persistence;
 using GitRate.Common.Database;
 using GitRate.Common.Logging;
 using GitRate.Common.Mvc;
+using GitRate.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,7 @@ namespace Auth.Web
             services.AddCustomLogging(Configuration);
             services.AddCustomMvc(Configuration);
             services.AddDataContext<AuthContext>(Configuration);
+            services.AddSwaggerDocs(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,12 +43,10 @@ namespace Auth.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSwaggerDocs(Configuration);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
