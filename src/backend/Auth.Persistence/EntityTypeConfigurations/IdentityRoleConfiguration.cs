@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auth.Persistence.EntityTypeConfigurations
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
+    public class IdentityRoleConfiguration : IEntityTypeConfiguration<IdentityRole>
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
