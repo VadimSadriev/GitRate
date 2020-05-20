@@ -1,6 +1,8 @@
+using System.Reflection;
 using Auth.Persistence;
 using GitRate.Common.Database;
 using GitRate.Common.Logging;
+using GitRate.Common.MediatR;
 using GitRate.Common.Mvc;
 using GitRate.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +29,7 @@ namespace Auth.Web
             services.AddCustomMvc(Configuration);
             services.AddDataContext<AuthContext>(Configuration);
             services.AddSwaggerDocs(Configuration);
+            services.AddMediatR(Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

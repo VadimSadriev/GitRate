@@ -53,7 +53,7 @@ namespace GitRate.Common.Swagger
 
         public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder builder, IConfiguration configuration)
         {
-            var swaggerSection = configuration.GetSection("swagger").CheckExistence();
+            var swaggerSection = configuration.GetSection("Swagger").CheckExistence();
 
             var options = new SwaggerOptions();
 
