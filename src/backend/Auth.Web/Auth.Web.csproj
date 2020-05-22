@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Auth.Application\Auth.Application.csproj" />
+      <ProjectReference Include="..\GitRate.Web.Common\GitRate.Web.Common.csproj" />
     </ItemGroup>
 
 

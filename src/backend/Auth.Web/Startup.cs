@@ -5,6 +5,7 @@ using GitRate.Common.Logging;
 using GitRate.Common.MediatR;
 using GitRate.Common.Mvc;
 using GitRate.Common.Swagger;
+using GitRate.Web.Common.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +50,9 @@ namespace Auth.Web
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+
+            app.UseErrorMiddleware();
+            
             app.UseSwaggerDocs(Configuration);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
