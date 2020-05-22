@@ -10,7 +10,8 @@ namespace GitRate.Common.Mapping
         public static IServiceCollection AddMappingProfiles(this IServiceCollection services, Assembly rootAssembly)
         {
             var assemblies = rootAssembly
-                .GetAllReferencedAssemblies(x => x.FullName.Contains("Auth") || x.FullName.Contains("GitRate"));
+                .GetAllReferencedAssemblies(x => x.FullName.StartsWith("GitRate"));
+           
             services.AddAutoMapper(assemblies);
             
             return services;

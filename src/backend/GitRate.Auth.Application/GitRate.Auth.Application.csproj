@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Auth.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GitRate.Auth.Persistence\GitRate.Auth.Persistence.csproj" />
+      <ProjectReference Include="..\GitRate.Common\GitRate.Common.csproj" />
+    </ItemGroup>
+
+</Project>

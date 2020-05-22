@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{189131C5-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{42E84491-D876-4D28-8FDA-0FD8FCB8F964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Web", "Auth.Web\Auth.Web.csproj", "{8CB7CC25-53E2-4A56-BA2D-40989A684A9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Auth.Web", "GitRate.Auth.Web\GitRate.Auth.Web.csproj", "{8CB7CC25-53E2-4A56-BA2D-40989A684A9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{B85DD248-9319-4020-BD2D-55DDB3538CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Domain", "Auth.Domain\Auth.Domain.csproj", "{45576627-4104-43D3-BC10-34806CED70A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Auth.Domain", "GitRate.Auth.Domain\GitRate.Auth.Domain.csproj", "{45576627-4104-43D3-BC10-34806CED70A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Persistence", "Auth.Persistence\Auth.Persistence.csproj", "{514995DE-6F95-424F-A7FB-416662FA1D78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Auth.Persistence", "GitRate.Auth.Persistence\GitRate.Auth.Persistence.csproj", "{514995DE-6F95-424F-A7FB-416662FA1D78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Application", "Auth.Application\Auth.Application.csproj", "{49CC306B-D732-4A53-8BDF-390DEDEB7323}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Auth.Application", "GitRate.Auth.Application\GitRate.Auth.Application.csproj", "{49CC306B-D732-4A53-8BDF-390DEDEB7323}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Web.Common", "GitRate.Web.Common\GitRate.Web.Common.csproj", "{8A236BBE-B3B5-4531-8397-2692C489E3FD}"
 EndProject

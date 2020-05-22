@@ -12,7 +12,7 @@ namespace GitRate.Common.Extensions
         /// </summary>
         public static IEnumerable<Assembly> GetAllReferencedAssemblies(this Assembly root, Func<AssemblyName, bool> condition = null)
         {
-            return GetAssemblies(root, condition);
+            return GetAssemblies(root, condition).Distinct();
         }
 
         private static IEnumerable<Assembly> GetAssemblies(Assembly root, Func<AssemblyName, bool> condition = null)
@@ -29,7 +29,7 @@ namespace GitRate.Common.Extensions
 
                 assemblies.Add(assembly);
 
-                assemblies.AddRange(GetAssemblies(assembly));
+                assemblies.AddRange(GetAssemblies(assembly, condition));
             }
 
             return assemblies;

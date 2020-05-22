@@ -1,10 +1,13 @@
 import React from 'react';
 import BaseRouter from './routes';
+import Layout from './components/layout';
 
 function App() {
   return (
     <React.Fragment>
-      <BaseRouter />
+      <Layout>
+        <BaseRouter />
+      </Layout>
     </React.Fragment>
   );
 }
