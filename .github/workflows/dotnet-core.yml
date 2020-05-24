@@ -1,0 +1,27 @@
+name: build, test
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+       matrix:
+         os: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install backend dependencies
+      run: dotnet restore ./src/backend
+    - name: Build .net dotnet
+      run: dotnet build ./src/backend --configuration Release --no-restore
+    - name: Run backend tests
+      run: dotnet test ./src/backend --no-restore --verbosity normal
