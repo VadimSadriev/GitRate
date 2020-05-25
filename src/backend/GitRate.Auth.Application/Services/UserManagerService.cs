@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using GitRate.Auth.Domain;
+using GitRate.Common.Exceptions;
 using GitRate.Common.Identity.Types;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,9 +17,20 @@ namespace Auth.Application.Services
             _userManager = userManager;
         }
 
-        public Task<string> AddAsync(string userName, string email, string password)
+        public async Task<string> CreateAsync(string userName, string email, string password)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                UserName = userName,
+                Email = email
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+                throw new AppException(result.Errors.Select(x => x.Description).Aggregate((a, b) => $"{a}{Environment.NewLine}{b}"));
+
+            return user.Id;
         }
     }
 }

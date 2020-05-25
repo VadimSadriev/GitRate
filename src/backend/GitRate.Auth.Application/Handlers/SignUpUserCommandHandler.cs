@@ -19,8 +19,10 @@ namespace Auth.Application.Handlers
             _userManager = userManager;
         }
         
-        public Task<Unit> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
         {
+            var userId = await _userManager.CreateAsync(request.UserName, request.Email, request.Password);
+            
             throw new NotImplementedException();
         }
     }
