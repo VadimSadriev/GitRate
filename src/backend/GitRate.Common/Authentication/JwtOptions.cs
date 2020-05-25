@@ -21,7 +21,7 @@
         public string Audience { get; set; }
         
         /// <summary>
-        /// Expire time in milliseconds
+        /// Expire time in minutes
         /// </summary>
         public int Expires { get; set; }
     }

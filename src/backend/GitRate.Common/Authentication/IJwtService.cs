@@ -4,6 +4,6 @@ namespace GitRate.Common.Authentication
 {
     public interface IJwtService
     {
-        Task<JsonWebToken> Create(string userId);
+        JsonWebToken Create(string userId);
     }
 }

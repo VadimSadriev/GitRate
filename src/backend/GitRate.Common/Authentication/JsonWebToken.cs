@@ -2,6 +2,6 @@
 {
     public class JsonWebToken
     {
-        
+        public string Token { get; set; }
     }
 }
