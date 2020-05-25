@@ -9,8 +9,8 @@ namespace GitRate.Common.Authentication
 {
     public class JwtService : IJwtService
     {
-        private ITimeProvider _time;
-        private JwtOptions _jwtOptions;
+        private readonly ITimeProvider _time;
+        private readonly JwtOptions _jwtOptions;
         
         public JwtService(ITimeProvider time, JwtOptions jwtOptions)
         {

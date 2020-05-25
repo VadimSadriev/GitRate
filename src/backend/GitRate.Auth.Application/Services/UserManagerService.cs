@@ -17,6 +17,10 @@ namespace Auth.Application.Services
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Creates new user in application
+        /// </summary>
+        /// <exception cref="AppException">Thrown if user creation was unsuccessfull</exception>
         public async Task<string> CreateAsync(string userName, string email, string password)
         {
             var user = new User

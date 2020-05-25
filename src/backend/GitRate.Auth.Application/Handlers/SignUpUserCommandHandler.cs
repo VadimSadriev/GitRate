@@ -2,28 +2,35 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Auth.Application.Commands;
+using Auth.Application.Dto;
 using GitRate.Auth.Persistence;
+using GitRate.Common.Authentication;
 using GitRate.Common.Identity.Types;
 using MediatR;
 
 namespace Auth.Application.Handlers
 {
-    public class SignUpUserCommandHandler : IRequestHandler<SignUpUserCommand>
+    public class SignUpUserCommandHandler : IRequestHandler<SignUpUserCommand, SignUpUserResultDto>
     {
-        private AuthContext _context;
-        private IUserManager _userManager;
+        private readonly IUserManager _userManager;
+        private readonly IJwtService _jwtService;
         
-        public SignUpUserCommandHandler(AuthContext context, IUserManager userManager)
+        public SignUpUserCommandHandler(IUserManager userManager, IJwtService jwtService)
         {
-            _context = context;
             _userManager = userManager;
+            _jwtService = jwtService;
         }
         
-        public async Task<Unit> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
+        public async Task<SignUpUserResultDto> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
         {
             var userId = await _userManager.CreateAsync(request.UserName, request.Email, request.Password);
-            
-            throw new NotImplementedException();
+
+            var jwtToken = _jwtService.Create(userId);
+
+            return new SignUpUserResultDto
+            {
+                JwtToken = jwtToken.Token
+            };
         }
     }
 }
