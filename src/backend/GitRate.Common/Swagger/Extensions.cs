@@ -22,7 +22,7 @@ namespace GitRate.Common.Swagger
 
             return services.AddSwaggerGen(swaggerGenOptions =>
             {
-                swaggerGenOptions.SwaggerDoc(options.Name, new OpenApiInfo { Title = options.Title, Version = options.Version });
+                swaggerGenOptions.SwaggerDoc(options.Version, new OpenApiInfo { Title = options.Title, Version = options.Version });
                 swaggerGenOptions.DescribeAllParametersInCamelCase();
 
                 if (!options.IncludeSecurity)
@@ -68,7 +68,7 @@ namespace GitRate.Common.Swagger
 
             return builder.UseSwaggerUI(swaggerUIOptions =>
             {
-                swaggerUIOptions.SwaggerEndpoint($"/{routePrefix}/{options.Name}/swagger.json", options.Title);
+                swaggerUIOptions.SwaggerEndpoint($"{options.Version}/swagger.json", options.Title);
                 swaggerUIOptions.RoutePrefix = routePrefix;
             });
         }

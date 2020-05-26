@@ -14,12 +14,13 @@ namespace GitRate.Auth.Web.Controllers
         {
             _mediator = mediator;
         }
-
+        
+        [HttpPost]
         [Route("signup")]
         public async Task<IActionResult> SignUp([FromBody] SignUpUserCommand command)
         {
             var result = await _mediator.Send(command);
-
+        
             return Ok(result);
         }
     }

@@ -1,7 +1,10 @@
 using System.Reflection;
+using Auth.Application.Services;
+using GitRate.Auth.Domain;
 using GitRate.Auth.Persistence;
 using GitRate.Common.Authentication;
 using GitRate.Common.Database;
+using GitRate.Common.Identity;
 using GitRate.Common.Logging;
 using GitRate.Common.Mapping;
 using GitRate.Common.MediatR;
@@ -11,6 +14,7 @@ using GitRate.Common.Time;
 using GitRate.Web.Common.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +38,7 @@ namespace GitRate.Auth.Web
             services.AddDataContext<AuthContext>(Configuration);
             services.AddSwaggerDocs(Configuration);
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddCustomIdentity<User, IdentityRole, AuthContext, UserManagerService>(Configuration);
             services.AddMappingProfiles(Assembly.GetExecutingAssembly());
             services.AddJwt(Configuration);
             services.AddSingleton<ITimeProvider, TimeProvider>();
@@ -55,10 +60,10 @@ namespace GitRate.Auth.Web
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseErrorMiddleware();
-            
+
             app.UseSwaggerDocs(Configuration);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
