@@ -26,6 +26,7 @@ namespace GitRate.Common.Database
             if (string.IsNullOrEmpty(connectionString))
                 throw new ArgumentException("Connection string is empty");
             
+            Console.WriteLine($"Environment: {AspNetCoreEnvironment}");
             Console.WriteLine($"Creating {typeof(TContext).Name}. Connection string: {connectionString}");
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
