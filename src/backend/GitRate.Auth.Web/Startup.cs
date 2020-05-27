@@ -1,4 +1,5 @@
 using System.Reflection;
+using Auth.Application;
 using Auth.Application.Services;
 using GitRate.Auth.Domain;
 using GitRate.Auth.Persistence;
@@ -42,6 +43,7 @@ namespace GitRate.Auth.Web
             services.AddMappingProfiles(Assembly.GetExecutingAssembly());
             services.AddJwt(Configuration);
             services.AddSingleton<ITimeProvider, TimeProvider>();
+            services.AddApplication(Configuration, Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

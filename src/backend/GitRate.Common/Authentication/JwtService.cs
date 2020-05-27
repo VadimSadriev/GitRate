@@ -34,7 +34,7 @@ namespace GitRate.Common.Authentication
             
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
-                SecurityAlgorithms.Sha256);
+                SecurityAlgorithms.HmacSha256);
 
             var jwt = new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,

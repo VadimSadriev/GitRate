@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Auth.Application.Behaviours;
-using AutoMapper.Configuration;
 using FluentValidation;
 using GitRate.Common.Extensions;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Application

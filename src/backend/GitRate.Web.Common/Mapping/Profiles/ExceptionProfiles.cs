@@ -40,6 +40,7 @@ namespace GitRate.Web.Common.Mapping.Profiles
                     : ExceptionTypes.DOMAIN_ERROR;
 
                 yield return new ExceptionErrorContract { Type = type, Message = ex.Message };
+                srcEx = srcEx.InnerException;
             }
         }
     }

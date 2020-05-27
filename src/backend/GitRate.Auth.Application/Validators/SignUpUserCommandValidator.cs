@@ -15,9 +15,12 @@ namespace Auth.Application.Validators
                 .NotEmpty()
                 .WithMessage("UserName cannot be empty.")
                 .NotNull()
-                .WithMessage("Please provide UserName")
+                .WithMessage("Please provide UserName");
+
+            RuleFor(x => x.UserName)
                 .MustAsync(async (val, token) => !await context.Users.AnyAsync(x => x.NormalizedUserName == val.ToUpper()))
-                .WithMessage(x => $"UserName: {x.UserName} already taken.");
+                .WithMessage(x => $"UserName: {x.UserName} already taken.")
+                .When(model => !string.IsNullOrEmpty(model.UserName));
 
             RuleFor(x => x.Email)
                 .NotEmpty()
@@ -25,16 +28,19 @@ namespace Auth.Application.Validators
                 .NotNull()
                 .WithMessage("Please provide Email")
                 .EmailAddress()
-                .WithMessage(x => $"Email: {x.Email} is not in correct format.")
+                .WithMessage(x => $"Email: {x.Email} is not in correct format.");
+
+            RuleFor(x => x.Email)
                 .MustAsync(async (val, token) => !await context.Users.AnyAsync(x => x.NormalizedEmail == val.ToUpper()))
-                .WithMessage(x => $"Email: {x.Email} is already taken.");
+                .WithMessage(x => $"Email: {x.Email} is already taken.")
+                .When(model => !string.IsNullOrEmpty(model.Email));
 
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage("Password cannot be empty.")
                 .NotNull()
                 .WithMessage("Please provide Password")
-                .Must(x => x.Length < identityOptions.Value.Password.RequiredLength)
+                .Must(x => !(x.Length < identityOptions.Value.Password.RequiredLength))
                 .WithMessage($"Password must be at least {identityOptions.Value.Password.RequiredLength} characters.");
         }
     }
