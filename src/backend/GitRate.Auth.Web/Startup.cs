@@ -34,7 +34,7 @@ namespace GitRate.Auth.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomLogging(Configuration);
-            services.AddCustomMvc(Configuration);
+            services.AddCustomMvc(Configuration, Assembly.GetExecutingAssembly());
             services.AddDataContext<AuthContext>(Configuration);
             services.AddSwaggerDocs(Configuration);
             services.AddMediatR(Assembly.GetExecutingAssembly());

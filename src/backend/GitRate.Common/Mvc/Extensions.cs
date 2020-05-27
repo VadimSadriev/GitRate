@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Linq;
+using System.Reflection;
+using System.Text.Json.Serialization;
+using GitRate.Common.Extensions;
+using GitRate.Common.Types;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,9 +10,15 @@ namespace GitRate.Common.Mvc
 {
     public static class Extensions
     {
-        public static IMvcBuilder AddCustomMvc(this IServiceCollection services, IConfiguration configuration)
+        public static IMvcBuilder AddCustomMvc(this IServiceCollection services, IConfiguration configuration, Assembly rootAssembly)
         {
-           return services.AddControllers()
+            return services.AddControllers(options =>
+                {
+                    var filters = rootAssembly.GetTypesAssignableFromAssemblyDependencies<ICustomActionFilter>();
+
+                    foreach (var filter in filters)
+                        options.Filters.Add(filter);
+                })
                 .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
         }
     }
