@@ -3,12 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
-using GitRate.Common.Types;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GitRate.Web.Common.Filters
 {
-    public class ValidationFilter : IAsyncActionFilter, ICustomActionFilter
+    public class ValidationFilter : IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
