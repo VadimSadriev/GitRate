@@ -1,13 +1,20 @@
-﻿using AutoMapper.Configuration;
+﻿using System.Reflection;
+using Auth.Application.Behaviours;
+using AutoMapper.Configuration;
+using FluentValidation;
+using GitRate.Common.Extensions;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Auth.Application
 {
     public static class Extensions
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration, Assembly rootAssembly)
         {
-            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.AddValidatorsFromAssemblies(rootAssembly.GetApplicationAssemblies());
             
             return services;
         }

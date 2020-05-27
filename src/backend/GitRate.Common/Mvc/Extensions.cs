@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.Json.Serialization;
 using GitRate.Common.Extensions;
 using GitRate.Common.Types;
