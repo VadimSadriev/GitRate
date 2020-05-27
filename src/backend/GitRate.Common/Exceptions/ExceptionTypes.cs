@@ -14,5 +14,10 @@
         /// Error occured during business logic
         /// </summary>
         public const string APPLICATION_ERROR = "APPLICATION_ERROR";
+
+        /// <summary>
+        /// Error occured during validation
+        /// </summary>
+        public const string VALIDATION_ERROR = "VALIDATION_ERROR";
     }
 }

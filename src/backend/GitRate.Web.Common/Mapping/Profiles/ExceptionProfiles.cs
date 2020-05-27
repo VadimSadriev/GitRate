@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using GitRate.Common.Exceptions;
 using GitRate.Web.Common.Contracts.Exception;
 
@@ -19,6 +21,12 @@ namespace GitRate.Web.Common.Mapping.Profiles
             CreateMap<Exception, ExceptionContract>()
                 .ForMember(x => x.Errors,
                     options => options.MapFrom(x => MapError(x)));
+
+            CreateMap<ValidationException, ExceptionContract>();
+
+            CreateMap<ValidationFailure, ExceptionErrorContract>()
+                .ForMember(x => x.Type, opt => opt.MapFrom(x => ExceptionTypes.VALIDATION_ERROR))
+                .ForMember(x => x.Message, opt => opt.MapFrom(x => x.ErrorMessage));
         }
 
         private IEnumerable<ExceptionErrorContract> MapError(Exception ex)
