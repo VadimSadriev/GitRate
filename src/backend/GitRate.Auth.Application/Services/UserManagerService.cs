@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Auth.Application.Services
 {
+    /// <summary>
+    /// Service for managing application users
+    /// </summary>
     public class UserManagerService : IUserManager
     {
         private readonly UserManager<User> _userManager;
@@ -22,18 +25,24 @@ namespace Auth.Application.Services
         /// Find user by UserName
         /// </summary>
         /// <exception cref="EntityNotFoundException"></exception>
-        public Task<UserDto> FindByUserName(string userName)
+        public async Task<UserDto> FindByUserName(string userName)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName)
+                       ?? throw new EntityNotFoundException($"User with UserName: {userName} not found");
+            
+            return new UserDto(user.Id);
         }
 
         /// <summary>
         /// Find user by Email
         /// </summary>
         /// <exception cref="EntityNotFoundException"></exception>
-        public Task<UserDto> FindByEmail(string email)
+        public async Task<UserDto> FindByEmail(string email)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(email)
+                       ?? throw new EntityNotFoundException($"User with Email: {email} not found");
+            
+            return new UserDto(user.Id);
         }
 
         /// <summary>

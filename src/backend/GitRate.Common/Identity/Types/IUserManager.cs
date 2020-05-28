@@ -4,6 +4,9 @@ using GitRate.Common.Identity.Dto;
 
 namespace GitRate.Common.Identity.Types
 {
+    /// <summary>
+    /// Service for managing application users
+    /// </summary>
     public interface IUserManager
     {
         /// <summary>
