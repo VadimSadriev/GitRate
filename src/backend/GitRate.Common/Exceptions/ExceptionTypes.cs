@@ -19,5 +19,10 @@
         /// Error occured during validation
         /// </summary>
         public const string VALIDATION_ERROR = "VALIDATION_ERROR";
+
+        /// <summary>
+        /// Error occured if requested entity not found
+        /// </summary>
+        public const string ENTITY_NOT_FOUND_ERROR = "ENTITY_NOT_FOUND_ERROR";
     }
 }

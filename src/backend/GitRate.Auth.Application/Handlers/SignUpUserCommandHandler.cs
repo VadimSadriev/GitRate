@@ -27,10 +27,7 @@ namespace Auth.Application.Handlers
 
             var jwtToken = _jwtService.Create(userId);
 
-            return new SignUpUserResultDto
-            {
-                JwtToken = jwtToken.Token
-            };
+            return new SignUpUserResultDto(jwtToken.Token);
         }
     }
 }

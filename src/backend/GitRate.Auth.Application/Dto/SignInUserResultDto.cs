@@ -2,9 +2,9 @@
 
 namespace Auth.Application.Dto
 {
-    public class SignUpUserResultDto
+    public class SignInUserResultDto
     {
-        public SignUpUserResultDto(string jwtToken)
+        public SignInUserResultDto(string jwtToken)
         {
             if (string.IsNullOrEmpty(jwtToken))
                 throw new ArgumentException("Jwt token cannot be null or empty", nameof(jwtToken));

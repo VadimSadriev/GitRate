@@ -36,7 +36,7 @@ namespace GitRate.Web.Common.Mapping.Profiles
             while (srcEx != null)
             {
                 var type = ex is AppException appException
-                    ? AppException.Type
+                    ? appException.Type
                     : ExceptionTypes.DOMAIN_ERROR;
 
                 yield return new ExceptionErrorContract { Type = type, Message = ex.Message };

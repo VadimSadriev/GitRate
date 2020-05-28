@@ -25,6 +25,6 @@ namespace GitRate.Common.Exceptions
         /// <summary>
         /// Exception Type
         /// </summary>
-        public static string Type => ExceptionTypes.APPLICATION_ERROR;
+        public virtual string Type => ExceptionTypes.APPLICATION_ERROR;
     }
 }

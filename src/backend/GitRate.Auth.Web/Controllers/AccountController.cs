@@ -23,5 +23,14 @@ namespace GitRate.Auth.Web.Controllers
         
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("signin")]
+        public async Task<IActionResult> SignIn([FromBody] SignInUserCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
     }
 }
