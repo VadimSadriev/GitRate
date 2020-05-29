@@ -28,7 +28,9 @@ namespace Auth.Application.Handlers
 
             var jwtToken = _jwtService.Create(user.Id);
 
-            return new SignInUserResultDto(jwtToken.Token);
+            var refreshToken = await _userManager.GenerateRefreshToken(user.Id, jwtToken.Jti);
+
+            return new SignInUserResultDto(jwtToken.Token, refreshToken);
         }
     }
 }

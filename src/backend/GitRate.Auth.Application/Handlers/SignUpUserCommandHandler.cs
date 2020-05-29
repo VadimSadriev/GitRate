@@ -25,11 +25,11 @@ namespace Auth.Application.Handlers
         {
             var userId = await _userManager.CreateAsync(request.UserName, request.Email, request.Password);
 
-            var jwtToken = _jwtService.Create(userId);
+            var Jwt = _jwtService.Create(userId);
             
-            var refreshToken = await _userManager.GenerateRefreshToken(userId, jwtToken.Jti);
+            var refreshToken = await _userManager.GenerateRefreshToken(userId, Jwt.Jti);
             
-            return new SignUpUserResultDto(jwtToken.Token, refreshToken);
+            return new SignUpUserResultDto(Jwt.Token, refreshToken);
         }
     }
 }

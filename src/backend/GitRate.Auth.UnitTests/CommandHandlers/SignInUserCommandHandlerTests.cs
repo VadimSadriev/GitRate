@@ -66,7 +66,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
 
             // assert
             result.Should().NotBeNull();
-            result.JwtToken.Should().Be(jwtToken.Token);
+            result.Jwt.Should().Be(jwtToken.Token);
         }
     }
 }
