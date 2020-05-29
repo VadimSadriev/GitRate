@@ -49,7 +49,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
                 .ReturnsAsync(userDto);
 
             _userManagerMock
-                .Setup(x => x.GetRefreshToken(userDto.Id, jwtToken.Jti))
+                .Setup(x => x.GenerateRefreshToken(userDto.Id, jwtToken.Jti))
                 .ReturnsAsync("refreshToken");
             
             _jwtServiceMock.Setup(x => x.Create(userDto.Id))

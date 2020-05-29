@@ -2,10 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using GitRate.Auth.Domain;
+using GitRate.Auth.Persistence;
 using GitRate.Common.Exceptions;
 using GitRate.Common.Identity.Dto;
 using GitRate.Common.Identity.Types;
+using GitRate.Common.Time;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Auth.Application.Services
 {
@@ -15,10 +19,16 @@ namespace Auth.Application.Services
     public class UserManagerService : IUserManager
     {
         private readonly UserManager<User> _userManager;
-        
-        public UserManagerService(UserManager<User> userManager)
+        private readonly ITimeProvider _timeProvider;
+        private readonly AuthContext _context;
+        private readonly ILogger<UserManagerService> _logger;
+
+        public UserManagerService(UserManager<User> userManager, ITimeProvider timeProvider, AuthContext context, ILogger<UserManagerService> logger)
         {
             _userManager = userManager;
+            _timeProvider = timeProvider;
+            _context = context;
+            _logger = logger;
         }
 
         /// <summary>
@@ -29,7 +39,7 @@ namespace Auth.Application.Services
         {
             var user = await _userManager.FindByNameAsync(userName)
                        ?? throw new EntityNotFoundException($"User with UserName: {userName} not found");
-            
+
             return new UserDto(user.Id, user.UserName, user.Email);
         }
 
@@ -41,7 +51,7 @@ namespace Auth.Application.Services
         {
             var user = await _userManager.FindByEmailAsync(email)
                        ?? throw new EntityNotFoundException($"User with Email: {email} not found");
-            
+
             return new UserDto(user.Id, user.UserName, user.Email);
         }
 
@@ -68,9 +78,27 @@ namespace Auth.Application.Services
         /// <summary>
         /// Returns refresh token for given user and jwt
         /// </summary>
-        public Task<string> GetRefreshToken(string userId, string jwtId)
+        public async Task<string> GenerateRefreshToken(string userId, string jti)
         {
-            throw new NotImplementedException();
+            var refreshToken = new RefreshToken
+            {
+                Jti = jti,
+                UserId = userId,
+                ExpireDate = _timeProvider.Now.AddMonths(1)
+            };
+
+            try
+            {
+                _context.RefreshTokens.Add(refreshToken);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Error occured during refresh token creation for userId: {userId} and jti: {jti}");
+                throw new AppException($"Cannot create refresh token for userId: {userId} and jti: {jti}", ex);
+            }
+
+            return refreshToken.Id;
         }
     }
 }

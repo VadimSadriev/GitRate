@@ -15,7 +15,7 @@ namespace GitRate.Auth.Domain
         /// <summary>
         /// Json web token identifier
         /// </summary>
-        public string JwtId { get; set; }
+        public string Jti { get; set; }
         
         /// <summary>
         /// Refresh token creation date

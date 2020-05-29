@@ -22,7 +22,7 @@ namespace GitRate.Auth.Persistence.EntityTypeConfigurations
             builder.Property(x => x.IsUsed)
                 .HasColumnName("is_used");
 
-            builder.Property(x => x.JwtId)
+            builder.Property(x => x.Jti)
                 .IsRequired()
                 .HasColumnName("jwt_jti");
 

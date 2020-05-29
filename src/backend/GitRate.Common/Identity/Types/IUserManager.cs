@@ -30,6 +30,6 @@ namespace GitRate.Common.Identity.Types
         /// <summary>
         /// Returns refresh token for given user and jwt
         /// </summary>
-        Task<string> GetRefreshToken(string userId, string jwtId);
+        Task<string> GenerateRefreshToken(string userId, string jti);
     }
 }

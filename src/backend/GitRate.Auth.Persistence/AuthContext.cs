@@ -14,6 +14,8 @@ namespace GitRate.Auth.Persistence
         /// Data context to manipulate with application users
         /// </summary>
         public AuthContext(DbContextOptions<AuthContext> options) : base(options) { }
+        
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
