@@ -38,7 +38,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
 
             var password = "Alice12345";
             
-            var jwtToken = new JsonWebToken(Guid.NewGuid().ToString());
+            var jwtToken = new JsonWebToken(Guid.NewGuid().ToString(), "refreshToken");
 
             _userManagerMock
                 .Setup(x => x.CreateAsync(user.UserName, user.Email, password))
@@ -59,7 +59,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
 
            // assert
            result.Should().NotBeNull();
-           result.JwtToken.Should().Be(jwtToken.Token);
+           result.Jwt.Should().Be(jwtToken.Token);
         }
     }
 }

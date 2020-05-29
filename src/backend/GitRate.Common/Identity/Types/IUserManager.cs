@@ -26,5 +26,10 @@ namespace GitRate.Common.Identity.Types
         /// </summary>
         /// <exception cref="AppException">Thrown if user creation was unsuccessfull</exception>
          Task<string> CreateAsync(string userName, string email, string password);
+
+        /// <summary>
+        /// Returns refresh token for given user and jwt
+        /// </summary>
+        Task<string> GetRefreshToken(string userId, string jwtId);
     }
 }

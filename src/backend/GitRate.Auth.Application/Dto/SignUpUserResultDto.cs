@@ -4,14 +4,20 @@ namespace Auth.Application.Dto
 {
     public class SignUpUserResultDto
     {
-        public SignUpUserResultDto(string jwtToken)
+        public SignUpUserResultDto(string jwt, string refreshToken)
         {
-            if (string.IsNullOrEmpty(jwtToken))
-                throw new ArgumentException("Jwt token cannot be null or empty", nameof(jwtToken));
+            if (string.IsNullOrEmpty(jwt))
+                throw new ArgumentException("Json web token cannot be null or empty", nameof(jwt));
             
-            JwtToken = jwtToken;
+            if (string.IsNullOrEmpty(refreshToken))
+                throw new ArgumentException("Refresh token cannot be null or empty", nameof(refreshToken));
+            
+            Jwt = jwt;
+            RefreshToken = refreshToken;
         }
         
-        public string JwtToken { get; }
+        public string Jwt { get; }
+        
+        public string RefreshToken { get; }
     }
 }

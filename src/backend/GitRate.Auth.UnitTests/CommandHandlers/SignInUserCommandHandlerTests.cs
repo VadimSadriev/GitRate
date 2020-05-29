@@ -38,7 +38,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
 
             var password = "Alice12345";
 
-            var jwtToken = new JsonWebToken(Guid.NewGuid().ToString());
+            var jwtToken = new JsonWebToken(Guid.NewGuid().ToString(), "refreshToken");
 
             _userManagerMock
                 .Setup(x => x.FindByEmail(userNameOrEmail))

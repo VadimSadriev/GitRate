@@ -64,5 +64,13 @@ namespace Auth.Application.Services
 
             return user.Id;
         }
+
+        /// <summary>
+        /// Returns refresh token for given user and jwt
+        /// </summary>
+        public Task<string> GetRefreshToken(string userId, string jwtId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

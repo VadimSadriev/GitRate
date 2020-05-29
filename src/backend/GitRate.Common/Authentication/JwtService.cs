@@ -30,9 +30,11 @@ namespace GitRate.Common.Authentication
 
             var now = _time.Now;
 
+            var jti = Guid.NewGuid().ToString();
+            
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, jti),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, userId),
             };
@@ -51,7 +53,7 @@ namespace GitRate.Common.Authentication
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new JsonWebToken(token);
+            return new JsonWebToken(jti, token);
         }
 
         public ClaimsPrincipal GetClaims(string jwt)
