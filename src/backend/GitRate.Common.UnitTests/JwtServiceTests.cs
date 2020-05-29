@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Moq;
 using Xunit;
 
-namespace GitRate.Common.Tests
+namespace GitRate.Common.UnitTests
 {
     public class JwtServiceTests
     {

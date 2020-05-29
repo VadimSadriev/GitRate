@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{266AC3AB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Auth.UnitTests", "GitRate.Auth.UnitTests\GitRate.Auth.UnitTests.csproj", "{3C7177AC-738D-4F3B-BACE-B90BEE6F3F29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Common.Tests", "GitRate.Common.Tests\GitRate.Common.Tests.csproj", "{63782636-5660-4159-AE8A-365965FE8E47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Common.UnitTests", "GitRate.Common.UnitTests\GitRate.Common.UnitTests.csproj", "{63782636-5660-4159-AE8A-365965FE8E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
