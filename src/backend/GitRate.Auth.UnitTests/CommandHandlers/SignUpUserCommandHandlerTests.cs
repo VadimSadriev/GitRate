@@ -15,7 +15,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
 {
     public class SignUpUserCommandHandlerTests : TestBase
     {
-        private SignUpUserCommandHandler _sut;
+        private readonly SignUpUserCommandHandler _sut;
         private readonly Mock<IUserManager> _userManagerMock = new Mock<IUserManager>();
         private readonly Mock<IJwtService> _jwtServiceMock = new Mock<IJwtService>();
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -44,6 +44,10 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
                 .Setup(x => x.CreateAsync(user.UserName, user.Email, password))
                 .ReturnsAsync(user.Id);
 
+            _userManagerMock
+                .Setup(x => x.GetRefreshToken(user.Id, jwtToken.Jti))
+                .ReturnsAsync("refreshToken");
+            
             _jwtServiceMock.Setup(x => x.Create(user.Id))
                 .Returns(jwtToken);
 

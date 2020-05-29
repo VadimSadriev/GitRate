@@ -48,9 +48,13 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
                 .Setup(x => x.FindByUserName(userNameOrEmail))
                 .ReturnsAsync(userDto);
 
+            _userManagerMock
+                .Setup(x => x.GetRefreshToken(userDto.Id, jwtToken.Jti))
+                .ReturnsAsync("refreshToken");
+            
             _jwtServiceMock.Setup(x => x.Create(userDto.Id))
                 .Returns(jwtToken);
-
+            
             var command = new SignInUserCommand
             {
                 UserNameOrEmail = userNameOrEmail,

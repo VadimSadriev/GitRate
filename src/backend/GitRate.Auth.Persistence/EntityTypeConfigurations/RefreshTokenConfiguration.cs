@@ -24,7 +24,7 @@ namespace GitRate.Auth.Persistence.EntityTypeConfigurations
 
             builder.Property(x => x.JwtId)
                 .IsRequired()
-                .HasColumnName("jwt_id");
+                .HasColumnName("jwt_jti");
 
             builder.Property(x => x.ExpireDate)
                 .HasColumnName("expire_date");
@@ -32,7 +32,7 @@ namespace GitRate.Auth.Persistence.EntityTypeConfigurations
             builder.Property(x => x.UserId)
                 .HasColumnName("user_id");
 
-            builder.HasOne(x => x.UserId)
+            builder.HasOne(x => x.User)
                 .WithMany()
                 .HasForeignKey(x => x.UserId);
 
