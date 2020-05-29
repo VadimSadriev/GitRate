@@ -9,15 +9,15 @@ namespace Auth.Application.Validators
         {
             RuleFor(x => x.UserNameOrEmail)
                 .NotEmpty()
-                .WithMessage("UserName or Email cannot be empty")
+                .WithMessage("UserName or Email cannot be empty.")
                 .NotNull()
-                .WithMessage("Please, provide UserName or Email");
+                .WithMessage("Please, provide UserName or Email.");
             
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage("Password cannot be empty.")
                 .NotNull()
-                .WithMessage("Please provide Password");
+                .WithMessage("Please, provide Password.");
         }
     }
 }
