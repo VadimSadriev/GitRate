@@ -10,7 +10,7 @@ namespace GitRate.Common.MediatR
     {
         public static IServiceCollection AddMediatR(this IServiceCollection services, Assembly rootAssembly)
         {
-            var assemblies = rootAssembly.GetApplicationAssemblies();
+            var assemblies = rootAssembly.GetReferencedApplicationAssemblies();
 
             services.AddMediatR(assemblies.ToArray());
 

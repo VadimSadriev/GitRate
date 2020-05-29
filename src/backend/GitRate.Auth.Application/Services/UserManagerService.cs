@@ -30,7 +30,7 @@ namespace Auth.Application.Services
             var user = await _userManager.FindByNameAsync(userName)
                        ?? throw new EntityNotFoundException($"User with UserName: {userName} not found");
             
-            return new UserDto(user.Id);
+            return new UserDto(user.Id, user.UserName, user.Email);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Auth.Application.Services
             var user = await _userManager.FindByEmailAsync(email)
                        ?? throw new EntityNotFoundException($"User with Email: {email} not found");
             
-            return new UserDto(user.Id);
+            return new UserDto(user.Id, user.UserName, user.Email);
         }
 
         /// <summary>

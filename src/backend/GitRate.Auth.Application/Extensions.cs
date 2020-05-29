@@ -14,7 +14,7 @@ namespace Auth.Application
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-            services.AddValidatorsFromAssemblies(rootAssembly.GetApplicationAssemblies());
+            services.AddValidatorsFromAssemblies(rootAssembly.GetReferencedApplicationAssemblies());
             
             return services;
         }

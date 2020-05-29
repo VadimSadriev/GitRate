@@ -9,7 +9,7 @@ namespace GitRate.Common.Mapping
     {
         public static IServiceCollection AddMappingProfiles(this IServiceCollection services, Assembly rootAssembly)
         {
-            var assemblies = rootAssembly.GetApplicationAssemblies();
+            var assemblies = rootAssembly.GetReferencedApplicationAssemblies();
            
             services.AddAutoMapper(assemblies);
             

@@ -46,10 +46,7 @@ namespace GitRate.Common.Authentication
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new JsonWebToken
-            {
-                Token = token
-            };
+            return new JsonWebToken(token);
         }
     }
 }

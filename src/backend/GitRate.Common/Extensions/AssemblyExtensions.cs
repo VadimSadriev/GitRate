@@ -14,7 +14,7 @@ namespace GitRate.Common.Extensions
         /// </summary>
         public static IEnumerable<Type> GetTypesAssignableFromAssemblyDependencies<TParent>(this Assembly root)
         {
-            var referencedAssemblies = root.GetApplicationAssemblies();
+            var referencedAssemblies = root.GetReferencedApplicationAssemblies();
 
             var parentType = typeof(TParent);
 
@@ -33,7 +33,7 @@ namespace GitRate.Common.Extensions
         /// <summary>
         /// Return collection of all assemblies referenced by <paramref name="root"/>
         /// </summary>
-        public static IEnumerable<Assembly> GetApplicationAssemblies(this Assembly root)
+        public static IEnumerable<Assembly> GetReferencedApplicationAssemblies(this Assembly root)
         {
             return GetReferencedAssembliesInternal(root).Distinct();
         }

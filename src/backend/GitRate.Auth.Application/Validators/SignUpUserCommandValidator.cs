@@ -1,6 +1,7 @@
 ﻿using Auth.Application.Commands;
 using FluentValidation;
 using GitRate.Auth.Persistence;
+using GitRate.Common.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -27,7 +28,7 @@ namespace Auth.Application.Validators
                 .WithMessage("Email cannot be empty.")
                 .NotNull()
                 .WithMessage("Please provide Email")
-                .EmailAddress()
+                .Must(emailVal => !emailVal.IsEmail())
                 .WithMessage(x => $"Email: {x.Email} is not in correct format.");
 
             RuleFor(x => x.Email)
