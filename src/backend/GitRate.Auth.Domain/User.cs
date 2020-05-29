@@ -8,6 +8,9 @@ namespace GitRate.Auth.Domain
     /// </summary>
     public class User : IdentityUser
     {
+        /// <summary>
+        /// User creation date
+        /// </summary>
         public DateTimeOffset CreateDate { get; set; }
     }
 }
