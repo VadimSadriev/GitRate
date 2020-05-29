@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Text;
 using FluentAssertions;
 using GitRate.Common.Authentication;
 using GitRate.Common.Time;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
 using Xunit;
@@ -24,19 +27,51 @@ namespace GitRate.Common.Tests
                 SecretKey = "YouWillNeverGuessMySecretKey"
             };
             
-            _sut = new JwtService(new TimeProvider(), jwtOptions, new TokenValidationParameters(), _loggerMock.Object);
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtOptions.Issuer,
+                ValidAudience = jwtOptions.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+            };
+
+            _sut = new JwtService(new TimeProvider(), jwtOptions, tokenValidationParameters, _loggerMock.Object);
         }
 
         [Fact]
         public void Should_Generate_Jwt()
         {
             // arrange
-           
+
             // act
             var result = _sut.Create(Guid.NewGuid().ToString());
 
             result.Should().NotBeNull();
             result.Token.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public void Should_Return_Claims()
+        {
+            // arrange
+            var userId = Guid.NewGuid().ToString();
+
+            var jwt = _sut.Create(userId);
+
+            // act
+            var claims = _sut.GetClaims(jwt.Token);
+
+            // assert
+            claims.Should().NotBeNull();
+            var jtiClaim = claims.FindFirst(JwtRegisteredClaimNames.Jti);
+            jtiClaim.Should().NotBeNull();
+
+            var userIdClaim = claims.FindFirst(ClaimTypes.NameIdentifier);
+            userIdClaim.Should().NotBeNull();
+            userIdClaim.Value.Should().Be(userId);
         }
     }
 }

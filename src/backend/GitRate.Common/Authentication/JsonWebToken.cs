@@ -12,9 +12,9 @@ namespace GitRate.Common.Authentication
             if (string.IsNullOrEmpty(token))
                 throw new ArgumentException("Json web token cannot be null or empty", nameof(token));
 
+            Jti = jti;
             Token = token;
         }
-        
         
         public string Jti { get; }
         public string Token { get; }

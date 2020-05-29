@@ -36,7 +36,7 @@ namespace GitRate.Common.Authentication
             {
                 new Claim(JwtRegisteredClaimNames.Jti, jti),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
+                new Claim(ClaimTypes.NameIdentifier, userId),
             };
 
             var signingCredentials = new SigningCredentials(
@@ -48,7 +48,7 @@ namespace GitRate.Common.Authentication
                 audience: _jwtOptions.Audience,
                 claims: claims,
                 signingCredentials: signingCredentials,
-                expires: now.AddMinutes(_jwtOptions.Expires).DateTime
+                expires: now.AddMinutes(_jwtOptions.Expires).UtcDateTime
             );
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -59,7 +59,7 @@ namespace GitRate.Common.Authentication
         public ClaimsPrincipal GetClaims(string jwt)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-
+            
             try
             {
                 var principal = tokenHandler.ValidateToken(jwt, _tokenValidationParameters, out var validatedToken);
