@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using GitRate.Auth.Domain;
 using GitRate.Auth.Persistence;
@@ -23,7 +24,8 @@ namespace Auth.Application.Services
         private readonly AuthContext _context;
         private readonly ILogger<UserManagerService> _logger;
 
-        public UserManagerService(UserManager<User> userManager, ITimeProvider timeProvider, AuthContext context, ILogger<UserManagerService> logger)
+        public UserManagerService(UserManager<User> userManager, ITimeProvider timeProvider, AuthContext context,
+            ILogger<UserManagerService> logger)
         {
             _userManager = userManager;
             _timeProvider = timeProvider;
@@ -31,6 +33,21 @@ namespace Auth.Application.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Returns user by claims 
+        /// </summary>
+        /// <exception cref="EntityNotFoundException"></exception>
+        public async Task<UserDto> GetUserAsync(ClaimsPrincipal claims)
+        {
+            var user = await _userManager.GetUserAsync(claims);
+
+            if (user != null)
+                return new UserDto(user.Id, user.UserName, user.Email);
+            
+            _logger.LogError("User not found for passed claims @{claims}", claims);
+            throw new EntityNotFoundException($"User not found");
+        }
+        
         /// <summary>
         /// Find user by UserName
         /// </summary>
@@ -70,7 +87,8 @@ namespace Auth.Application.Services
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
-                throw new AppException(result.Errors.Select(x => x.Description).Aggregate((a, b) => $"{a}{Environment.NewLine}{b}"));
+                throw new AppException(result.Errors.Select(x => x.Description)
+                    .Aggregate((a, b) => $"{a}{Environment.NewLine}{b}"));
 
             return user.Id;
         }
@@ -94,11 +112,43 @@ namespace Auth.Application.Services
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, $"Error occured during refresh token creation for userId: {userId} and jti: {jti}");
+                _logger.LogError(ex,
+                    $"Error occured during refresh token creation for userId: {userId} and jti: {jti}");
                 throw new AppException($"Cannot create refresh token for userId: {userId} and jti: {jti}", ex);
             }
 
             return refreshToken.Id;
+        }
+
+        /// <summary>
+        /// Expires refresh token
+        /// </summary>
+        /// <exception cref="EntityNotFoundException">Thrown if refresh token not found</exception>
+        /// <exception cref="AppException">Thrown if token expiration failed</exception>
+        public async Task ExpireRefreshToken(string id, string jti, string jwt)
+        {
+            var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Id == id)
+                        ?? throw new EntityNotFoundException($"Refresh token with id: {id} not found");
+
+            if (_timeProvider.Now > refreshToken.ExpireDate)
+                throw new AppException($"Refresh token: {id} has been expired");
+
+            if (refreshToken.IsUsed)
+                throw new AppException($"Refresh token: {id} has been used");
+
+            if (refreshToken.Jti != jti)
+                throw new AppException($"Refresh token: {id} does not belong to jwt: {jwt}");
+            
+            try
+            {
+                refreshToken.IsUsed = true;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, $"Could not update refresh token with id: {id}");
+                throw new AppException("An error occurred during refreshing token", ex);
+            }
         }
     }
 }

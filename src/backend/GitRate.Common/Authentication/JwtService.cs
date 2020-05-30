@@ -36,7 +36,7 @@ namespace GitRate.Common.Authentication
             {
                 new Claim(JwtRegisteredClaimNames.Jti, jti),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.NameIdentifier, userId)
             };
 
             var signingCredentials = new SigningCredentials(
@@ -56,7 +56,7 @@ namespace GitRate.Common.Authentication
             return new JsonWebToken(jti, token);
         }
 
-        public ClaimsPrincipal GetClaims(string jwt)
+        public ClaimsPrincipal? GetClaims(string jwt)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             
