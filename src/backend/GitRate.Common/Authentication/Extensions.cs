@@ -28,7 +28,7 @@ namespace GitRate.Common.Authentication
             };
 
             services.AddTransient<IJwtService, JwtService>();
-            services.AddSingleton(jwtOptions);
+            services.Configure<JwtOptions>(jwtSection);
             services.AddSingleton(tokenValidationParameters);
             services.AddAuthentication(options =>
                 {

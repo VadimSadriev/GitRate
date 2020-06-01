@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using GitRate.Common.Time;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GitRate.Common.Authentication
@@ -15,10 +16,10 @@ namespace GitRate.Common.Authentication
         private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly ILogger<JwtService> _logger;
 
-        public JwtService(ITimeProvider time, JwtOptions jwtOptions, TokenValidationParameters tokenValidationParameters, ILogger<JwtService> logger)
+        public JwtService(ITimeProvider time, IOptions<JwtOptions> jwtOptions, TokenValidationParameters tokenValidationParameters, ILogger<JwtService> logger)
         {
             _time = time;
-            _jwtOptions = jwtOptions;
+            _jwtOptions = jwtOptions.Value;
             _tokenValidationParameters = tokenValidationParameters;
             _logger = logger;
         }

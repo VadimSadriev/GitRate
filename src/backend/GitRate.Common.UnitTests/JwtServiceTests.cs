@@ -5,6 +5,7 @@ using FluentAssertions;
 using GitRate.Common.Authentication;
 using GitRate.Common.Time;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
@@ -16,6 +17,7 @@ namespace GitRate.Common.UnitTests
     {
         private readonly JwtService _sut;
         private readonly Mock<ILogger<JwtService>> _loggerMock = new Mock<ILogger<JwtService>>();
+        private readonly Mock<IOptions<JwtOptions>> _jwtOptionsMock = new Mock<IOptions<JwtOptions>>();
 
         public JwtServiceTests()
         {
@@ -26,7 +28,10 @@ namespace GitRate.Common.UnitTests
                 Expires = 5,
                 SecretKey = "YouWillNeverGuessMySecretKey"
             };
-            
+
+            _jwtOptionsMock.Setup(x => x.Value)
+                .Returns(jwtOptions);
+
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -38,7 +43,7 @@ namespace GitRate.Common.UnitTests
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
             };
 
-            _sut = new JwtService(new TimeProvider(), jwtOptions, tokenValidationParameters, _loggerMock.Object);
+            _sut = new JwtService(new TimeProvider(), _jwtOptionsMock.Object, tokenValidationParameters, _loggerMock.Object);
         }
 
         [Fact]
