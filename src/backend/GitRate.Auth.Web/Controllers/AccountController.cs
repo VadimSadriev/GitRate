@@ -39,5 +39,15 @@ namespace GitRate.Auth.Web.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("refresh-token")]
+        [ProducesErrorResponseType(typeof(ExceptionContract))]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshJwtCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
     }
 }
