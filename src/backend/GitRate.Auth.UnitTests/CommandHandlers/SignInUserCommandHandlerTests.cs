@@ -11,6 +11,7 @@ using GitRate.Common.Authentication;
 using GitRate.Common.Extensions;
 using GitRate.Common.Identity.Dto;
 using GitRate.Common.Identity.Types;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -21,11 +22,12 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
         private SignInUserCommandHandler _sut;
         private readonly Mock<IUserManager> _userManagerMock = new Mock<IUserManager>();
         private readonly Mock<IJwtService> _jwtServiceMock = new Mock<IJwtService>();
+        private readonly Mock<ILogger<SignInUserCommandHandler>> _loggerMock = new Mock<ILogger<SignInUserCommandHandler>>();
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public SignInUserCommandHandlerTests()
         {
-            _sut = new SignInUserCommandHandler(_userManagerMock.Object, _jwtServiceMock.Object);
+            _sut = new SignInUserCommandHandler(_userManagerMock.Object, _jwtServiceMock.Object, _loggerMock.Object);
         }
 
         [Theory]
@@ -41,15 +43,15 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
             var jwtToken = new JsonWebToken(Guid.NewGuid().ToString(), "refreshToken");
 
             _userManagerMock
-                .Setup(x => x.FindByEmail(userNameOrEmail))
+                .Setup(x => x.FindByEmailAsync(userNameOrEmail))
                 .ReturnsAsync(userDto);
             
             _userManagerMock
-                .Setup(x => x.FindByUserName(userNameOrEmail))
+                .Setup(x => x.FindByUserNameAsync(userNameOrEmail))
                 .ReturnsAsync(userDto);
 
             _userManagerMock
-                .Setup(x => x.GenerateRefreshToken(userDto.Id, jwtToken.Jti))
+                .Setup(x => x.GenerateRefreshTokenAsync(userDto.Id, jwtToken.Jti))
                 .ReturnsAsync("refreshToken");
             
             _jwtServiceMock.Setup(x => x.Create(userDto.Id))

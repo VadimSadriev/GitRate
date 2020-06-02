@@ -24,7 +24,10 @@ namespace Auth.Application.Services
         private readonly AuthContext _context;
         private readonly ILogger<UserManagerService> _logger;
 
-        public UserManagerService(UserManager<User> userManager, ITimeProvider timeProvider, AuthContext context,
+        public UserManagerService(
+            UserManager<User> userManager,
+            ITimeProvider timeProvider,
+            AuthContext context,
             ILogger<UserManagerService> logger)
         {
             _userManager = userManager;
@@ -43,11 +46,11 @@ namespace Auth.Application.Services
 
             if (user != null)
                 return new UserDto(user.Id, user.UserName, user.Email);
-            
+
             _logger.LogError("User not found for passed claims @{claims}", claims);
             throw new EntityNotFoundException($"User not found");
         }
-        
+
         /// <summary>
         /// Find user by UserName
         /// </summary>
@@ -92,7 +95,7 @@ namespace Auth.Application.Services
 
             return user.Id;
         }
-        
+
         /// <summary>
         /// Checks if password if valid for given user
         /// </summary>
@@ -139,7 +142,7 @@ namespace Auth.Application.Services
         public async Task ExpireRefreshTokenAsync(string id, string jti, string jwt)
         {
             var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Id == id)
-                        ?? throw new EntityNotFoundException($"Refresh token with id: {id} not found");
+                               ?? throw new EntityNotFoundException($"Refresh token with id: {id} not found");
 
             if (_timeProvider.Now > refreshToken.ExpireDate)
                 throw new AppException($"Refresh token: {id} has been expired");
@@ -149,7 +152,7 @@ namespace Auth.Application.Services
 
             if (refreshToken.Jti != jti)
                 throw new AppException($"Refresh token: {id} does not belong to jwt: {jwt}");
-            
+
             try
             {
                 refreshToken.IsUsed = true;

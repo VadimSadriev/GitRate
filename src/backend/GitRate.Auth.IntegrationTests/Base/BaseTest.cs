@@ -12,6 +12,7 @@ namespace GitRate.Auth.IntegrationTests.Base
 {
     public class BaseTest : IAsyncDisposable
     {
+        private readonly string _dbName = Guid.NewGuid().ToString();
         private readonly IServiceProvider _serviceProvider;
         protected readonly HttpClient TestClient;
 
@@ -23,12 +24,18 @@ namespace GitRate.Auth.IntegrationTests.Base
                     builder.ConfigureServices(services =>
                     {
                         services.RemoveAll<DbContextOptions<AuthContext>>();
-                        services.AddDbContext<AuthContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+                        services.RemoveAll(typeof(AuthContext));
+                        services.AddDbContext<AuthContext>(options => options.UseInMemoryDatabase(_dbName));
                     });
                 });
 
             _serviceProvider = appFactory.Services;
             TestClient = appFactory.CreateClient();
+            
+            using var serviceScope = _serviceProvider.CreateScope();
+
+            var context = serviceScope.ServiceProvider.GetService<AuthContext>();
+            context.Database.EnsureCreated();
         }
 
         public async ValueTask DisposeAsync()
