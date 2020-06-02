@@ -52,7 +52,7 @@ namespace Auth.Application.Services
         /// Find user by UserName
         /// </summary>
         /// <exception cref="EntityNotFoundException"></exception>
-        public async Task<UserDto> FindByUserName(string userName)
+        public async Task<UserDto> FindByUserNameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName)
                        ?? throw new EntityNotFoundException($"User with UserName: {userName} not found");
@@ -64,7 +64,7 @@ namespace Auth.Application.Services
         /// Find user by Email
         /// </summary>
         /// <exception cref="EntityNotFoundException"></exception>
-        public async Task<UserDto> FindByEmail(string email)
+        public async Task<UserDto> FindByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email)
                        ?? throw new EntityNotFoundException($"User with Email: {email} not found");
@@ -92,11 +92,22 @@ namespace Auth.Application.Services
 
             return user.Id;
         }
+        
+        /// <summary>
+        /// Checks if password if valid for given user
+        /// </summary>
+        public async Task<bool> VerifyPasswordAsync(string userId, string password)
+        {
+            var user = await _userManager.FindByIdAsync(userId)
+                       ?? throw new EntityNotFoundException($"User with Id: {userId} not found");
+
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
 
         /// <summary>
         /// Returns refresh token for given user and jwt
         /// </summary>
-        public async Task<string> GenerateRefreshToken(string userId, string jti)
+        public async Task<string> GenerateRefreshTokenAsync(string userId, string jti)
         {
             var refreshToken = new RefreshToken
             {
@@ -125,7 +136,7 @@ namespace Auth.Application.Services
         /// </summary>
         /// <exception cref="EntityNotFoundException">Thrown if refresh token not found</exception>
         /// <exception cref="AppException">Thrown if token expiration failed</exception>
-        public async Task ExpireRefreshToken(string id, string jti, string jwt)
+        public async Task ExpireRefreshTokenAsync(string id, string jti, string jwt)
         {
             var refreshToken = await _context.RefreshTokens.FirstOrDefaultAsync(x => x.Id == id)
                         ?? throw new EntityNotFoundException($"Refresh token with id: {id} not found");

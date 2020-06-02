@@ -49,13 +49,13 @@ namespace Auth.Application.Handlers
             if (jti == null)
                 throw new AppException($"Jwt {request.Jwt} does no have jti claim");
 
-            await _userManager.ExpireRefreshToken(request.RefreshToken, jti.Value, request.Jwt);
+            await _userManager.ExpireRefreshTokenAsync(request.RefreshToken, jti.Value, request.Jwt);
 
             var userDto = await _userManager.GetUserAsync(claims);
 
             var jwt = _jwtService.Create(userDto.Id);
 
-            var refreshToken = await _userManager.GenerateRefreshToken(userDto.Id, jwt.Jti);
+            var refreshToken = await _userManager.GenerateRefreshTokenAsync(userDto.Id, jwt.Jti);
 
             return new RefreshJwtResultDto(jwt.Token, refreshToken);
         }
