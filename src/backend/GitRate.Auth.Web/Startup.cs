@@ -62,7 +62,6 @@ namespace GitRate.Auth.Web
 
             app.UseStaticFiles();
             app.UseRouting();
-            // app.UseAuthorization();
 
             app.UseErrorMiddleware();
 

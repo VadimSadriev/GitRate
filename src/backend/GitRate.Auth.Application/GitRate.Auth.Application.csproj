@@ -7,7 +7,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GitRate.Auth.Persistence\GitRate.Auth.Persistence.csproj" />
-      <ProjectReference Include="..\GitRate.Common\GitRate.Common.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,15 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using GitRate.Common.Authentication;
+using GitRate.Common.Database;
+using GitRate.Common.Logging;
+using GitRate.Common.Mapping;
+using GitRate.Common.MediatR;
+using GitRate.Common.Mvc;
+using GitRate.Common.Swagger;
+using GitRate.Common.Time;
+using GitRate.Persistence;
+using GitRate.Web.Common.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace GitRate.Web.Api
 {
@@ -25,7 +29,16 @@ namespace GitRate.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var rootAssembly = Assembly.GetExecutingAssembly();
+            
+            services.AddCustomLogging(Configuration);
+            services.AddCustomMvc(Configuration, rootAssembly);
+            services.AddDataContext<DataContext>(Configuration);
+            services.AddSwaggerDocs(Configuration);
+            services.AddMediatR(rootAssembly);
+            services.AddMappingProfiles(Assembly.GetExecutingAssembly());
+            services.AddJwt(Configuration);
+            services.AddSingleton<ITimeProvider, TimeProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,12 +49,12 @@ namespace GitRate.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseErrorMiddleware();
 
+            app.UseSwaggerDocs(Configuration);
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

@@ -9,6 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GitRate.Application\GitRate.Application.csproj" />
       <ProjectReference Include="..\GitRate.Web.Common\GitRate.Web.Common.csproj" />
     </ItemGroup>
 
