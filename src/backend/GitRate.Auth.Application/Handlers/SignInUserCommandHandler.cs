@@ -18,6 +18,8 @@ namespace Auth.Application.Handlers
         {
             _userManager = userManager;
             _jwtService = jwtService;
+            // TODO: Should consider case when you can spam signin api and generate
+            // tons of jwt's. Probably should store tokens in redis and check if user is already authenticated
         }
 
         public async Task<SignInUserResultDto> Handle(SignInUserCommand request, CancellationToken cancellationToken)
