@@ -6,6 +6,7 @@ import {
     Button,
     Typography
 } from '@material-ui/core';
+import './style.scss';
 
 
 function NavBar(props) {
@@ -13,13 +14,15 @@ function NavBar(props) {
     return (
         <React.Fragment>
             <AppBar position="fixed" color="default">
-                <Toolbar>
-                    <Typography variant="h6" component={Link} to="/">
-                        Git-Rate
-                    </Typography>
-                    <div>
-                        <Button>SignIn</Button>
-                    </div>
+                <Toolbar className="nav-menu">
+                    <nav>
+                        <Typography variant="h6" component={Link} to="/" className="nav-brand">
+                            Git-Rate
+                        </Typography>
+                        <div className="auth-links">
+                            <Button>SignIn</Button>
+                        </div>
+                    </nav>
                 </Toolbar>
             </AppBar>
         </React.Fragment>

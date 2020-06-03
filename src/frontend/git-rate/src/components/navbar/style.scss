@@ -1,0 +1,20 @@
+.nav-brand{
+    text-decoration: none;
+
+    &:visited{
+        color: black;
+    } 
+}
+
+.nav-menu{
+    
+    nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.auth-links{
+  
+}
