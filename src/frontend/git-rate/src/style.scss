@@ -1,0 +1,12 @@
+@import './shared//sass/base';
+
+html{
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+}
+
+.MuiButton-root{
+    text-transform: none !important;
+    font-family: $base-font-family !important;
+    font-size: 1rem !important;
+}

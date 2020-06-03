@@ -20,6 +20,7 @@ function NavBar(props) {
                             Git-Rate
                         </Typography>
                         <div className="auth-links">
+                            <Button>SignUp</Button>
                             <Button>SignIn</Button>
                         </div>
                     </nav>
