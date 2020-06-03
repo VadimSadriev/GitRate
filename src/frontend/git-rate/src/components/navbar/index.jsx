@@ -20,8 +20,8 @@ function NavBar(props) {
                             Git-Rate
                         </Typography>
                         <div className="auth-links">
-                            <Button>SignUp</Button>
-                            <Button>SignIn</Button>
+                            <Button component={Link} to="/signup">SignUp</Button>
+                            <Button component={Link} to="/signin">SignIn</Button>
                         </div>
                     </nav>
                 </Toolbar>

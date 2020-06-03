@@ -10,3 +10,44 @@ html{
     font-family: $base-font-family !important;
     font-size: 1rem !important;
 }
+
+.MuiInput-root{
+    margin-bottom: 2px !important;
+}
+
+.MuiInput-underline{
+    &:hover:not(.Mui-disabled):before {
+        border-bottom: 2px solid $primary-color !important;
+    }
+
+    &:after{
+        border-bottom: 2px solid $primary-color !important;
+    }
+}
+
+.MuiButton-containedPrimary {
+    background-color: $primary-color !important;
+    
+    &:hover{
+        filter: brightness(80%);
+    }
+}
+
+.MuiFormLabel-root{
+    &.Mui-focused{
+        color: $primary-color !important;
+    }
+}
+
+.MuiSnackbar-root{
+    white-space: pre;
+}
+
+.MuiSnackbarContent-message{
+    white-space: pre-line;
+    max-width: 400px;
+}
+
+.MuiSnackbarContent-action{
+    padding-left: 0px !important;
+}
