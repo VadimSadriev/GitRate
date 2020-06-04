@@ -7,6 +7,7 @@ using Auth.Application.Handlers;
 using FluentAssertions;
 using FluentValidation.Validators;
 using GitRate.Auth.Domain;
+using GitRate.Auth.UnitTests.Base;
 using GitRate.Common.Authentication;
 using GitRate.Common.Extensions;
 using GitRate.Common.Identity.Dto;
@@ -17,7 +18,7 @@ using Xunit;
 
 namespace GitRate.Auth.UnitTests.CommandHandlers
 {
-    public class SignInUserCommandHandlerTests
+    public class SignInUserCommandHandlerTests : TestBase
     {
         private SignInUserCommandHandler _sut;
         private readonly Mock<IUserManager> _userManagerMock = new Mock<IUserManager>();
@@ -41,7 +42,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
             var password = "Alice12345";
 
             var jwtToken = new JsonWebToken(Guid.NewGuid().ToString(), "refreshToken");
-
+            
             _userManagerMock
                 .Setup(x => x.FindByEmailAsync(userNameOrEmail))
                 .ReturnsAsync(userDto);
@@ -49,6 +50,9 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
             _userManagerMock
                 .Setup(x => x.FindByUserNameAsync(userNameOrEmail))
                 .ReturnsAsync(userDto);
+
+            _userManagerMock.Setup(x => x.VerifyPasswordAsync(userDto.Id, password))
+                .ReturnsAsync(true);
 
             _userManagerMock
                 .Setup(x => x.GenerateRefreshTokenAsync(userDto.Id, jwtToken.Jti))
