@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as actions from '../../store/actions/signup';
+import { connect } from 'react-redux';
 import {
     Container,
     Card,
@@ -16,15 +18,23 @@ function SignUp(props) {
         document.title = props.title;
     })
 
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onUserNameChanged = e => setUserName(e.target.value);
+    const onEmailChanged = e => setEmail(e.target.value);
+    const onPasswordChanged = e => setPassword(e.target.value);
+
     return (
         <React.Fragment>
             <Container maxWidth='sm'>
                 <Card>
                     <CardHeader className='card-header' title='Register account' />
                     <CardContent className='card-content'>
-                        <TextField label='User Name' color='secondary'  />
-                        <TextField label='Email'  />
-                        <TextField label='Password' type='password' color='secondary' />
+                        <TextField label='User Name' color='secondary' onChange={onUserNameChanged} />
+                        <TextField label='Email' onChange={onEmailChanged} />
+                        <TextField label='Password' type='password' color='secondary' onChange={onPasswordChanged} />
                     </CardContent>
                     <CardActions className='card-footer'>
                         <Button variant="contained" color="primary" >Sign Up</Button>
@@ -35,4 +45,12 @@ function SignUp(props) {
     )
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+    return {
+        signin: (userName, email, password) => {
+            dispatch(actions.signup(userName, email, password));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);
