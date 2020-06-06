@@ -7,7 +7,7 @@ function LayoutBackdrop(props) {
 
     return (
         <React.Fragment>
-            <Backdrop className="backdrop" open={this.props.isOpen}>
+            <Backdrop className="backdrop" open={props.isOpen}>
                 <CircularProgress color="inherit" />
             </Backdrop>
         </React.Fragment>

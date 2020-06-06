@@ -7,6 +7,7 @@ import NotFound from './components/not-found';
 
 function Routers(props) {
 
+    // https://stackoverflow.com/questions/43210516/how-to-redirect-from-axios-interceptor-with-react-router-v4
     return (
         <Switch>
             <Route exact path="/" render={() => <Home title="GitRate - Home" />} />

@@ -26,6 +26,10 @@ function SignUp(props) {
     const onEmailChanged = e => setEmail(e.target.value);
     const onPasswordChanged = e => setPassword(e.target.value);
 
+    const onSignUp = e => {
+        props.signup(userName, email, password);
+    }
+
     return (
         <React.Fragment>
             <Container maxWidth='sm'>
@@ -37,7 +41,7 @@ function SignUp(props) {
                         <TextField label='Password' type='password' color='secondary' onChange={onPasswordChanged} />
                     </CardContent>
                     <CardActions className='card-footer'>
-                        <Button variant="contained" color="primary" >Sign Up</Button>
+                        <Button variant="contained" color="primary" onClick={onSignUp}>Sign Up</Button>
                     </CardActions>
                 </Card>
             </Container>
@@ -47,7 +51,7 @@ function SignUp(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signin: (userName, email, password) => {
+        signup: (userName, email, password) => {
             dispatch(actions.signup(userName, email, password));
         }
     }

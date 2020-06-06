@@ -6,12 +6,14 @@ import { createBrowserHistory } from 'history';
 import configureStore from './store';
 import * as serviceWorker from './serviceWorker';
 import { ConnectedRouter } from 'connected-react-router';
+import { http, setupReduxResponseInterceptor } from './shared/http';
 
 const history = createBrowserHistory({ basename: "/" });
 
 const initialState = {};
 
 const store = configureStore(initialState, history);
+setupReduxResponseInterceptor(store);
 
 ReactDOM.render(
   <React.Fragment>
