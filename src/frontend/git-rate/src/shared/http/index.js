@@ -43,7 +43,7 @@ export const setupReduxResponseInterceptor = store => {
 
             switch (response.status) {
                 case httpStatuses.Unauthorized:
-                    store.distpatch(push('/signin'))
+                    store.dispatch(push('/signin'))
                 case httpStatuses.Forbidden:
                 case httpStatuses.GatewayTimeout:
                 case httpStatuses.InternalServerError:
