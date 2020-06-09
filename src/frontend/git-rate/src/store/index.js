@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import layoutBackdropReducer from './reducers/layoutBackdrop';
 import authReducer from './reducers/auth';
+import layoutSnackbarReducer from './reducers/layoutSnackbar';
 
 export default function configureStore(initialState, history) {
 
     const reducers = {
         layoutBackdrop: layoutBackdropReducer,
+        layoutSnackbar: layoutSnackbarReducer,
         auth: authReducer
     };
 

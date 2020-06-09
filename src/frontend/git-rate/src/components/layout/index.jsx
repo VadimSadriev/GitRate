@@ -1,7 +1,8 @@
 import React from 'react';
 import NavBar from '../navbar/index';
 import { withStyles } from '@material-ui/core/styles';
-import LayoutBackdrop from '../backdrop/index';
+import LayoutBackdrop from '../backdrop';
+import LayoutSnackbar from '../snackbar';
 import './style.scss';
 
 const styles = theme => ({
@@ -15,6 +16,7 @@ function Layout(props) {
             <NavBar />
             <div className={props.classes.toolbar}></div>
             <LayoutBackdrop />
+            <LayoutSnackbar />
             <div className="body-container">
                 {props.children}
             </div>
