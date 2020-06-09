@@ -7,6 +7,7 @@ import configureStore from './store';
 import * as serviceWorker from './serviceWorker';
 import { ConnectedRouter } from 'connected-react-router';
 import { setupReduxResponseInterceptor } from './shared/http';
+import { SnackbarProvider } from 'notistack';
 
 const history = createBrowserHistory({ basename: "/" });
 
@@ -19,7 +20,9 @@ ReactDOM.render(
   <React.Fragment>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        <SnackbarProvider maxSnack={10}>
+          <App />
+        </SnackbarProvider>
       </ConnectedRouter>
     </Provider>
   </React.Fragment>,

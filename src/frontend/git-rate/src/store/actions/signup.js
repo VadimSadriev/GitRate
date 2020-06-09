@@ -15,7 +15,9 @@ const signupFail = () => {
 
 export const signup = (userName, email, password) => {
     return dispatch => {
+
         dispatch(layoutBackdropActions.open());
+        
         http.post('api/signup', {
             userName: userName,
             email: email,
