@@ -65,6 +65,16 @@ namespace GitRate.Auth.Web
 
             app.UseErrorMiddleware();
 
+            app.UseCors(builder =>
+            {
+                if (env.IsDevelopment())
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                }
+            });
+
             app.UseSwaggerDocs(Configuration);
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
