@@ -1,14 +1,15 @@
-import * as layoutBackdropActions from './layoutBackdrop';
-import { http } from '../../shared/http';
 import * as layoutSnackbarActions from './layoutSnackbar';
+import * as layoutBackdropActions from './layoutBackdrop';
 import * as authActions from './auth';
 import { push } from 'connected-react-router';
+import { http } from '../../shared/http';
 
-export const signup = (userName, email, password) => {
+
+export const signin = (userNameOrEmail, password) => {
     return dispatch => {
 
-        if (!userName && !email && !password){
-            dispatch(layoutSnackbarActions.enqueueSnackbarError("UserName, email or password cannot be empty"));
+        if (!userNameOrEmail && !password){
+            dispatch(layoutSnackbarActions.enqueueSnackbarError("Username, email or password cannot be empty"));
             return;
         }
 
@@ -16,10 +17,9 @@ export const signup = (userName, email, password) => {
         http({
             method: "POST",
             baseURL: `${process.env.REACT_APP_AUTH_API_URL}`,
-            url: "api/account/signup",
+            url: "api/account/signin",
             data: {
-                userName: userName,
-                email: email,
+                userNameOrEmail: userNameOrEmail,
                 password: password
             }
         }).then(resp => {
@@ -33,7 +33,8 @@ export const signup = (userName, email, password) => {
                 dispatch(push("/"));
             }
             else {
-                dispatch(layoutSnackbarActions.enqueueSnackbarError("Could not retrieve jwt and refresh token"));
+                console.log("Could not retrieve jwt and refresh token");
+                dispatch(layoutSnackbarActions.enqueueSnackbarError("And error occured during signin"));
             }
 
         }).catch(error => {
@@ -42,7 +43,7 @@ export const signup = (userName, email, password) => {
                 error.errors.forEach(error => dispatch(layoutSnackbarActions.enqueueSnackbarError(error.message)));
             }
             else {
-                dispatch(layoutSnackbarActions.enqueueSnackbarError("And error occured during signup"));
+                dispatch(layoutSnackbarActions.enqueueSnackbarError("And error occured during signin"));
                 console.log(error);
             }
         })

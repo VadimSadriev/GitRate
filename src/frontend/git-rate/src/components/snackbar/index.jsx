@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { removeSnackbar } from '../../store/actions/layoutSnackbar';
-
 
 const defaultOptions = {
     anchorOrigin: {

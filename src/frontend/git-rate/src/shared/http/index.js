@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { authFail } from '../../store/actions/auth';
 import { push } from 'connected-react-router';
 
 const httpConfig = {
@@ -43,6 +44,7 @@ export const setupReduxResponseInterceptor = store => {
 
             switch (response.status) {
                 case httpStatuses.Unauthorized:
+                    store.dispatch(authFail());
                     store.dispatch(push('/signin'));
                     break;
                 case httpStatuses.Forbidden:
