@@ -6,6 +6,8 @@ import {
     Button,
     Typography
 } from '@material-ui/core';
+import AuthLinks from './components/authLinks';
+import UserAuthMenu from './components/userAuthMenu';
 import { connect } from 'react-redux';
 import './style.scss';
 
@@ -22,11 +24,8 @@ function NavBar(props) {
                         </Typography>
                         {
                             props.auth.isLogged
-                                ? <Typography>{props.auth.user.userName}</Typography>
-                                : <div className="auth-links">
-                                    <Button component={Link} to="/signup">SignUp</Button>
-                                    <Button component={Link} to="/signin">SignIn</Button>
-                                </div>
+                                ? <UserAuthMenu user={props.auth.user} />
+                                : <AuthLinks />
                         }
                     </nav>
                 </Toolbar>

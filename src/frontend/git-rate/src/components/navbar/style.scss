@@ -17,3 +17,18 @@
         justify-content: space-between;
     }
 }
+
+.user-auth-menu-root{
+    position: relative !important;
+}
+
+.user-auth-menu{
+    margin-top: 2px;
+    position: absolute !important;
+    border-radius: 4px;
+    background-color: #fff;
+
+    .user-auth-menu-item{
+        padding: 5px;
+    }
+}
