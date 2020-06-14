@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authFail } from '../../store/actions/auth';
+import { authFail, authSuccess } from '../../store/actions/auth';
 import { push } from 'connected-react-router';
 
 const httpConfig = {
@@ -44,8 +44,17 @@ export const setupReduxResponseInterceptor = store => {
 
             switch (response.status) {
                 case httpStatuses.Unauthorized:
-                    store.dispatch(authFail());
-                    store.dispatch(push('/signin'));
+
+                    tryRefreshJwt()
+                    .then(resp => {
+                        if (resp){
+                            authSuccess();
+                        }
+                        else{
+                            store.dispatch(authFail());
+                            store.dispatch(push('/signin'));
+                        }
+                    })
                     break;
                 case httpStatuses.Forbidden:
                     break;
@@ -59,5 +68,42 @@ export const setupReduxResponseInterceptor = store => {
             }
         }
         return Promise.reject(error);
+    })
+}
+
+function tryRefreshJwt() {
+    return new Promise((resolve, reject) => {
+        let refreshToken = localStorage.getItem("refreshToken");
+        let token = localStorage.getItem("token");
+
+        if (refreshToken && token) {
+            http({
+                method: 'POST',
+                baseURL: process.env.REACT_APP_AUTH_API_URL,
+                api: 'api/account/refreshToken',
+                data: {
+
+                }
+            }).then(resp => {
+
+                const { jwt, refreshToken } = resp.data;
+
+                if (jwt && refreshToken) {
+                   localStorage.setItem("token", jwt);
+                   localStorage.setItem("refreshToken", refreshToken);
+                   resolve(true);
+                }
+                else{
+                    console.log(resp);
+                    resolve(false);
+                }
+
+            }).catch(err => {
+                console.log(err);
+                resolve(false);
+            });
+        }
+
+        resolve(false);
     })
 }
