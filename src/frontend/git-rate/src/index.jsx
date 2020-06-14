@@ -11,7 +11,15 @@ import { SnackbarProvider } from 'notistack';
 
 const history = createBrowserHistory({ basename: "/" });
 
-const initialState = {};
+const initialState = {
+  auth: {
+    isLogged: true,
+    user:{
+        userName: 'Ahri',
+        email: 'Ahri@gmail.com'
+    }
+  }
+};
 
 const store = configureStore(initialState, history);
 setupReduxResponseInterceptor(store);

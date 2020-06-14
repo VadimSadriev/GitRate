@@ -1,5 +1,9 @@
 const initialState = {
-    isLogged: false
+    isLogged: false,
+    user:{
+        userName: '',
+        email: ''
+    }
 }
 
 const authReducer = (state = initialState, action) => {

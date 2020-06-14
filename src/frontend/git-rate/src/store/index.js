@@ -25,6 +25,7 @@ export default function configureStore(initialState, history) {
 
     return createStore(
         rootReducer,
+        initialState,
         compose(applyMiddleware(...middlewares))
     );
 }

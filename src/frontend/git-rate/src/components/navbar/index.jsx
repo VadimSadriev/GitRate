@@ -6,11 +6,12 @@ import {
     Button,
     Typography
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import './style.scss';
-
 
 function NavBar(props) {
 
+    console.log(props);
     return (
         <React.Fragment>
             <AppBar position="fixed" color="default">
@@ -19,10 +20,14 @@ function NavBar(props) {
                         <Typography variant="h6" component={Link} to="/" className="nav-brand">
                             Git-Rate
                         </Typography>
-                        <div className="auth-links">
-                            <Button component={Link} to="/signup">SignUp</Button>
-                            <Button component={Link} to="/signin">SignIn</Button>
-                        </div>
+                        {
+                            props.auth.isLogged
+                                ? <Typography>{props.auth.user.userName}</Typography>
+                                : <div className="auth-links">
+                                    <Button component={Link} to="/signup">SignUp</Button>
+                                    <Button component={Link} to="/signin">SignIn</Button>
+                                </div>
+                        }
                     </nav>
                 </Toolbar>
             </AppBar>
@@ -30,4 +35,10 @@ function NavBar(props) {
     )
 }
 
-export default NavBar;
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(NavBar);
