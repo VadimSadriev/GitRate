@@ -3,6 +3,7 @@ using Auth.Application.Commands;
 using Auth.Application.Dto;
 using GitRate.Web.Common.Contracts.Exception;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace GitRate.Auth.Web.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
-        
-        public AccountController(IMediator mediator)
+        private readonly IWebHostEnvironment _env;
+
+        public AccountController(IMediator mediator, IWebHostEnvironment env)
         {
             _mediator = mediator;
+            _env = env;
         }
         
         [HttpPost]
@@ -48,6 +51,12 @@ namespace GitRate.Auth.Web.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpGet("env")]
+        public async Task<IActionResult> Env()
+        {
+            return Ok(_env.EnvironmentName);
         }
     }
 }
