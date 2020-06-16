@@ -12,8 +12,6 @@ import { connect } from 'react-redux';
 import './style.scss';
 
 function NavBar(props) {
-
-    console.log(props);
     return (
         <React.Fragment>
             <AppBar position="fixed" color="default">

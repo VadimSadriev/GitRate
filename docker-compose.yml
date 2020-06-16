@@ -2,6 +2,9 @@ version: "3.5"
 
 services:
     git-rate-auth:
+        container_name: git-rate-auth
+        depends_on:
+            - 'postgres-db'
         build:
             context: ./src/backend
             dockerfile: DockerfileAuth
@@ -9,3 +12,17 @@ services:
             - '5000:5000'
         environment:
             ASPNETCORE_ENVIRONMENT: 'Development'
+            
+    postgres-db:
+        container_name: git-rate-users-db
+        image: postgres:latest
+        ports:
+            - '5432:5432'
+        volumes:
+            - git-rate-users-db-volume:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: 'postgres'
+            POSTGRES_PASSWORD: 'postgres'
+            
+volumes:
+    git-rate-users-db-volume:
