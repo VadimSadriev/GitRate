@@ -6,7 +6,7 @@ WORKDIR /build
 
 COPY . /build
 
-RUN dotnet restore
+RUN dotnet restore GitRate.Auth.Web/GitRate.Auth.Web.csproj
 
 RUN dotnet publish GitRate.Auth.Web/GitRate.Auth.Web.csproj -c Release -o out
 
