@@ -4,7 +4,7 @@ services:
     git-rate-auth:
         container_name: git-rate-auth
         depends_on:
-            - 'postgres-auth_db'
+            - 'postgres-db'
         build:
             context: ./src/backend
             dockerfile: DockerfileAuth
@@ -19,7 +19,7 @@ services:
         ports:
             - '5432:5432'
         volumes:
-            - auth-db-volume:/var/lib/postgresql/data
+            - postgres-db-volume:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: 'postgres'
             POSTGRES_PASSWORD: 'postgres'
