@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Auth.Application.Commands;
@@ -42,6 +44,12 @@ namespace Auth.Application.Handlers
                     _logger.LogError($"Password: {request.Password} is not valid for user with id: {user.Id}");
                     throw new AppException();
                 }
+                
+                var customClaims = new List<Claim>
+                {
+                    new Claim(AuthConstants.Claims.UserName, user.UserName),
+                    new Claim(AuthConstants.Claims.Email, user.Email)
+                };
 
                 var jwtToken = _jwtService.Create(user.Id);
 

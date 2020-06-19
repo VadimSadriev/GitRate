@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -24,7 +25,7 @@ namespace GitRate.Common.Authentication
             _logger = logger;
         }
 
-        public JsonWebToken Create(string userId)
+        public JsonWebToken Create(string userId, List<Claim> customClaims = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentException("UserId cannot be null or whitespace.", nameof(userId));
@@ -33,12 +34,15 @@ namespace GitRate.Common.Authentication
 
             var jti = Guid.NewGuid().ToString();
             
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Jti, jti),
-                new Claim(JwtRegisteredClaimNames.Iat, now.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, userId)
+                new Claim(AuthConstants.Claims.JwtId, jti),
+                new Claim(AuthConstants.Claims.JwtCreateDate, now.ToString()),
+                new Claim(AuthConstants.Claims.UserId, userId)
             };
+            
+            if (customClaims != null)
+                claims.AddRange(customClaims);
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),

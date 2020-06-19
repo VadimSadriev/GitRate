@@ -12,13 +12,13 @@ namespace GitRate.Auth.Web
         {
             var host = CreateHostBuilder(args).Build();
 
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    var context = scope.ServiceProvider.GetRequiredService<AuthContext>();
-            
-            //    context.Database.Migrate();
-            //}
-           
+            using (var scope = host.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AuthContext>();
+
+                context.Database.Migrate();
+            }
+
             host.Run();
         }
 

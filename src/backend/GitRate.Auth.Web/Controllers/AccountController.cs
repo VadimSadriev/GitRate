@@ -13,14 +13,12 @@ namespace GitRate.Auth.Web.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IWebHostEnvironment _env;
 
-        public AccountController(IMediator mediator, IWebHostEnvironment env)
+        public AccountController(IMediator mediator)
         {
             _mediator = mediator;
-            _env = env;
         }
-        
+
         [HttpPost]
         [Route("signup")]
         [ProducesResponseType(typeof(SignUpUserResultDto), StatusCodes.Status200OK)]
@@ -28,7 +26,7 @@ namespace GitRate.Auth.Web.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUpUserCommand command)
         {
             var result = await _mediator.Send(command);
-        
+
             return Ok(result);
         }
 
@@ -45,6 +43,7 @@ namespace GitRate.Auth.Web.Controllers
 
         [HttpPost]
         [Route("refresh-token")]
+        [ProducesResponseType(typeof(RefreshJwtResultDto), StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(ExceptionContract))]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshJwtCommand command)
         {
@@ -53,10 +52,13 @@ namespace GitRate.Auth.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("env")]
-        public async Task<IActionResult> Env()
+        [HttpGet]
+        [Route("current")]
+        [ProducesErrorResponseType(typeof(ExceptionContract))]
+        public async Task<IActionResult> GetCurrentUser()
         {
-            return Ok(_env.EnvironmentName);
+            // var result = await _mediator.Send()
+            return Ok();
         }
     }
 }

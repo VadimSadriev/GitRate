@@ -58,7 +58,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
                 .Setup(x => x.GenerateRefreshTokenAsync(userDto.Id, jwtToken.Jti))
                 .ReturnsAsync("refreshToken");
             
-            _jwtServiceMock.Setup(x => x.Create(userDto.Id))
+            _jwtServiceMock.Setup(x => x.Create(userDto.Id, null))
                 .Returns(jwtToken);
             
             var command = new SignInUserCommand

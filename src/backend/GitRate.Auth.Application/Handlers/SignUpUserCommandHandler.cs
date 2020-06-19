@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Auth.Application.Commands;
@@ -25,11 +27,17 @@ namespace Auth.Application.Handlers
         {
             var userId = await _userManager.CreateAsync(request.UserName, request.Email, request.Password);
 
-            var Jwt = _jwtService.Create(userId);
+            var customClaims = new List<Claim>
+            {
+                new Claim(AuthConstants.Claims.UserName, request.UserName),
+                new Claim(AuthConstants.Claims.Email, request.Email)
+            };
+
+            var jwt = _jwtService.Create(userId, customClaims);
             
-            var refreshToken = await _userManager.GenerateRefreshTokenAsync(userId, Jwt.Jti);
+            var refreshToken = await _userManager.GenerateRefreshTokenAsync(userId, jwt.Jti);
             
-            return new SignUpUserResultDto(Jwt.Token, refreshToken);
+            return new SignUpUserResultDto(jwt.Token, refreshToken);
         }
     }
 }
