@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using GitRate.Common.Extensions;
+using GitRate.Common.Identity.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,6 +1,8 @@
-﻿using GitRate.Common.Identity.Dto;
+﻿using GitRate.Common.Authentication;
+using GitRate.Common.Identity.Dto;
 using GitRate.Common.Identity.Types;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace GitRate.Web.Common.Services
 {
@@ -28,10 +30,18 @@ namespace GitRate.Web.Common.Services
             if (_user != null)
                 return _user;
 
-            var claims = _httpContext.User?.Claims;
+            var identities = _httpContext.User?.Identities;
 
-            if (claims == null)
+            if (identities == null)
                 return null;
+
+            var claims = identities.First();
+
+            var id = claims.FindFirst(AuthConstants.Claims.UserId)?.Value;
+            var userName = claims.FindFirst(AuthConstants.Claims.UserName)?.Value;
+            var email = claims.FindFirst(AuthConstants.Claims.Email)?.Value;
+
+            _user = new UserDto(id, userName, email);
 
             return _user;
         }

@@ -7,6 +7,6 @@ namespace GitRate.Common.Authentication
     {
         JsonWebToken Create(string userId, List<Claim> customClaims = null);
 
-        ClaimsPrincipal GetClaims(string jwt);
+        ClaimsPrincipal? GetClaims(string jwt);
     }
 }

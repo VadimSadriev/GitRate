@@ -6,6 +6,7 @@ using GitRate.Auth.Persistence;
 using GitRate.Common.Authentication;
 using GitRate.Common.Database;
 using GitRate.Common.Identity;
+using GitRate.Common.Identity.Types;
 using GitRate.Common.Logging;
 using GitRate.Common.Mapping;
 using GitRate.Common.MediatR;
@@ -13,6 +14,7 @@ using GitRate.Common.Mvc;
 using GitRate.Common.Swagger;
 using GitRate.Common.Time;
 using GitRate.Web.Common.Middlewares;
+using GitRate.Web.Common.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -42,8 +44,11 @@ namespace GitRate.Auth.Web
             services.AddCustomIdentity<User, IdentityRole, AuthContext, UserManagerService>(Configuration);
             services.AddMappingProfiles(Assembly.GetExecutingAssembly());
             services.AddJwt(Configuration);
-            services.AddSingleton<ITimeProvider, TimeProvider>();
             services.AddApplication(Configuration, Assembly.GetExecutingAssembly());
+
+            // other services
+            services.AddSingleton<ITimeProvider, TimeProvider>();
+            services.AddScoped<IIdentityService, HttpContextIdentityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +61,8 @@ namespace GitRate.Auth.Web
 
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseErrorMiddleware();
 
             app.UseCors(builder =>

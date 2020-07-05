@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Auth.Application.Commands;
+﻿using Auth.Application.Commands;
 using Auth.Application.Dto;
 using GitRate.Web.Common.Contracts.Exception;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GitRate.Auth.Web.Controllers
 {
@@ -50,15 +49,6 @@ namespace GitRate.Auth.Web.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("current")]
-        [ProducesErrorResponseType(typeof(ExceptionContract))]
-        public async Task<IActionResult> GetCurrentUser()
-        {
-            // var result = await _mediator.Send()
-            return Ok();
         }
     }
 }
