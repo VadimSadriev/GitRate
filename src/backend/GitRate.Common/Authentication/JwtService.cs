@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GitRate.Common.Authentication
 {
+    /// <summary> Service for work with json web token </summary>
     public class JwtService : IJwtService
     {
         private readonly ITimeProvider _time;
@@ -17,6 +18,7 @@ namespace GitRate.Common.Authentication
         private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly ILogger<JwtService> _logger;
 
+        /// <summary> Service for work with json web token </summary>
         public JwtService(ITimeProvider time, IOptions<JwtOptions> jwtOptions, TokenValidationParameters tokenValidationParameters, ILogger<JwtService> logger)
         {
             _time = time;
@@ -25,6 +27,7 @@ namespace GitRate.Common.Authentication
             _logger = logger;
         }
 
+        /// <summary> Creates new json web token </summary>
         public JsonWebToken Create(string userId, List<Claim> customClaims = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
@@ -61,6 +64,7 @@ namespace GitRate.Common.Authentication
             return new JsonWebToken(jti, token);
         }
 
+        /// <summary> Gets claims from passed json web token </summary>
         public ClaimsPrincipal? GetClaims(string jwt)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -78,6 +82,7 @@ namespace GitRate.Common.Authentication
             }
         }
 
+        /// <summary> Validates algorithm for passed json web token </summary>
         private bool IsValidJwtAlgorithm(SecurityToken validatedToken)
         {
             return validatedToken is JwtSecurityToken jwtSecurityToken

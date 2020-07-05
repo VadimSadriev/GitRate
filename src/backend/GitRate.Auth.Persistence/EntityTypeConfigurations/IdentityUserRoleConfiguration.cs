@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GitRate.Auth.Persistence.EntityTypeConfigurations
 {
+    /// <summary>
+    /// Ef core configuration for <see cref="IdentityUserRole{string}"/>
+    /// </summary>
     public class IdentityUserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
     {
         public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)

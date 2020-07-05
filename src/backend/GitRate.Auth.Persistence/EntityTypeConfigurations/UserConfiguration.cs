@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GitRate.Auth.Persistence.EntityTypeConfigurations
 {
+    /// <summary>
+    /// Ef core configuration for <see cref="User"/>
+    /// </summary>
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)

@@ -7,8 +7,14 @@ using Microsoft.OpenApi.Models;
 
 namespace GitRate.Common.Swagger
 {
+    /// <summary>
+    /// Extensions for <see cref="Swagger"/>
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Adds swagger documentation for project
+        /// </summary>
         public static IServiceCollection AddSwaggerDocs(this IServiceCollection services, IConfiguration configuration)
         {
             var swaggerSection = configuration.GetSection("Swagger").CheckExistence();
@@ -51,6 +57,9 @@ namespace GitRate.Common.Swagger
             });
         }
 
+        /// <summary>
+        /// Uses swagger docs for ui
+        /// </summary>
         public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder builder, IConfiguration configuration)
         {
             var swaggerSection = configuration.GetSection("Swagger").CheckExistence();

@@ -3,8 +3,14 @@ using GitRate.Common.Extensions;
 
 namespace GitRate.Common.Identity.Dto
 {
+    /// <summary>
+    /// Contains user data
+    /// </summary>
     public class UserDto
     {
+        /// <summary>
+        /// Contains user data
+        /// </summary>
         public UserDto(string id, string userName, string email)
         {
             if (string.IsNullOrEmpty(id))
@@ -24,8 +30,19 @@ namespace GitRate.Common.Identity.Dto
             Email = email;
         }
         
+        /// <summary>
+        /// User identifier
+        /// </summary>
         public string Id { get; }
+
+        /// <summary>
+        /// User name
+        /// </summary>
         public string UserName { get; }
+
+        /// <summary>
+        /// User email
+        /// </summary>
         public string Email { get; }
     }
 }

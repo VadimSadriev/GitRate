@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-using Auth.Application.Commands;
+﻿using Auth.Application.Commands;
 using Auth.Application.Dto;
 using GitRate.Common.Authentication;
 using GitRate.Common.Exceptions;
@@ -9,15 +6,23 @@ using GitRate.Common.Identity.Types;
 using GitRate.Common.Time;
 using MediatR;
 using Microsoft.IdentityModel.JsonWebTokens;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Auth.Application.Handlers
 {
+    /// <summary>
+    /// Handles <see cref="RefreshJwtCommand"/>
+    /// </summary>
     public class RefreshJwtCommandHandler : IRequestHandler<RefreshJwtCommand, RefreshJwtResultDto>
     {
         private readonly IUserManager _userManager;
         private readonly IJwtService _jwtService;
         private readonly ITimeProvider _timeProvider;
-        
+
+        /// <summary>
+        /// Handles <see cref="RefreshJwtCommand"/>
+        /// </summary>
         public RefreshJwtCommandHandler(IUserManager userManager, IJwtService jwtService, ITimeProvider timeProvider)
         {
             _userManager = userManager;
@@ -25,6 +30,9 @@ namespace Auth.Application.Handlers
             _timeProvider = timeProvider;
         }
 
+        /// <summary>
+        /// Refreshes expired json web token
+        /// </summary>
         public async Task<RefreshJwtResultDto> Handle(RefreshJwtCommand request, CancellationToken cancellationToken)
         {
             var claims = _jwtService.GetClaims(request.Jwt);

@@ -2,8 +2,10 @@
 
 namespace Auth.Application.Dto
 {
+    /// <summary> Contains result data of login process </summary>
     public class SignInUserResultDto
     {
+        /// <summary> Contains result data of login process </summary>
         public SignInUserResultDto(string jwt, string refreshToken)
         {
             if (string.IsNullOrEmpty(jwt))
@@ -15,8 +17,12 @@ namespace Auth.Application.Dto
             Jwt = jwt;
             RefreshToken = refreshToken;
         }
-        
-        public string RefreshToken { get; }
+
+        /// <summary> Json web token </summary>
         public string Jwt { get; }
+
+        /// <summary> Refresh token for json web token </summary>
+        public string RefreshToken { get; }
+
     }
 }

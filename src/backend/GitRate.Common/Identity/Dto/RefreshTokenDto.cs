@@ -2,8 +2,14 @@ using System;
 
 namespace GitRate.Common.Identity.Dto
 {
+    /// <summary>
+    /// Contains refresh token data
+    /// </summary>
     public class RefreshTokenDto
     {
+        /// <summary>
+        /// Contains refresh token data
+        /// </summary>
         public RefreshTokenDto(string id, string jti, bool isUsed, DateTimeOffset expireDate)
         {
             if (string.IsNullOrEmpty(id))

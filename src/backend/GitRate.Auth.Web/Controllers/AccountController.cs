@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 
 namespace GitRate.Auth.Web.Controllers
 {
+    /// <summary> Main auth controller for user identity </summary>
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
 
+        /// <summary> Main auth controller for user identity </summary>
         public AccountController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        /// <summary> Creates new user account if no such exists </summary>
         [HttpPost]
         [Route("signup")]
         [ProducesResponseType(typeof(SignUpUserResultDto), StatusCodes.Status200OK)]
@@ -29,6 +32,7 @@ namespace GitRate.Auth.Web.Controllers
             return Ok(result);
         }
 
+        /// <summary> Authenticates user in system </summary>
         [HttpPost]
         [Route("signin")]
         [ProducesResponseType(typeof(SignInUserResultDto), StatusCodes.Status200OK)]
@@ -40,6 +44,7 @@ namespace GitRate.Auth.Web.Controllers
             return Ok(result);
         }
 
+        /// <summary> Refreshes expired json web token </summary>
         [HttpPost]
         [Route("refresh-token")]
         [ProducesResponseType(typeof(RefreshJwtResultDto), StatusCodes.Status200OK)]

@@ -1,15 +1,16 @@
-﻿using System.Text;
-using GitRate.Common.Extensions;
-using GitRate.Common.Identity.Types;
+﻿using GitRate.Common.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace GitRate.Common.Authentication
 {
+    /// <summary> Extensions for authentication </summary>
     public static class Extensions
     {
+        /// <summary> Adds jwt authentication </summary>
         public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSection = configuration.GetSection("Authentication:Jwt").CheckExistence();

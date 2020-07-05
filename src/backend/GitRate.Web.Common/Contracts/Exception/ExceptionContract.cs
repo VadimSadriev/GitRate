@@ -7,6 +7,9 @@ namespace GitRate.Web.Common.Contracts.Exception
     /// </summary>
     public class ExceptionContract
     {
+        /// <summary>
+        /// Errors occured during web request
+        /// </summary>
         public IEnumerable<ExceptionErrorContract> Errors { get; set; }
     }
 }

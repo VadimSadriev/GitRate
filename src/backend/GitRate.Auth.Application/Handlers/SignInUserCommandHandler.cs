@@ -14,12 +14,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Auth.Application.Handlers
 {
+    /// <summary>
+    /// Handles <see cref="SignInUserCommand"/>
+    /// </summary>
     public class SignInUserCommandHandler : IRequestHandler<SignInUserCommand, SignInUserResultDto>
     {
         private readonly IUserManager _userManager;
         private readonly IJwtService _jwtService;
         private readonly ILogger<SignInUserCommandHandler> _logger;
 
+        /// <summary>
+        /// Handles <see cref="SignInUserCommand"/>
+        /// </summary>
         public SignInUserCommandHandler(IUserManager userManager, IJwtService jwtService, ILogger<SignInUserCommandHandler> logger)
         {
             _userManager = userManager;
@@ -29,6 +35,9 @@ namespace Auth.Application.Handlers
             // tons of jwt's. Probably should store tokens in redis and check if user is already authenticated
         }
 
+        /// <summary>
+        /// Logs in new user
+        /// </summary>
         public async Task<SignInUserResultDto> Handle(SignInUserCommand request, CancellationToken cancellationToken)
         {
             try

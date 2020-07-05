@@ -3,8 +3,14 @@ using FluentValidation;
 
 namespace Auth.Application.Validators
 {
+    /// <summary>
+    /// Validates <see cref="SignInUserCommand"/>
+    /// </summary>
     public class SignInUserCommandValidator : AbstractValidator<SignInUserCommand>
     {
+        /// <summary>
+        /// Validates <see cref="SignInUserCommand"/>
+        /// </summary>
         public SignInUserCommandValidator()
         {
             RuleFor(x => x.UserNameOrEmail)
