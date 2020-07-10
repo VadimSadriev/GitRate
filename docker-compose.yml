@@ -7,7 +7,7 @@ services:
             - 'postgres-db'
         build:
             context: ./src/backend
-            dockerfile: DockerfileAuth
+            dockerfile: ./GitRate.Auth.Web/Dockerfile
         ports:
             - '5000:5000'
         environment:

@@ -6,9 +6,9 @@ WORKDIR /build
 
 COPY . /build
 
-RUN dotnet restore GitRate.Auth.Web/GitRate.Auth.Web.csproj
+WORKDIR /build/GitRate.Auth.Web
 
-RUN dotnet publish GitRate.Auth.Web/GitRate.Auth.Web.csproj -c Release -o out
+RUN dotnet publish GitRate.Auth.Web.csproj -c Release -o /build/out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
 
