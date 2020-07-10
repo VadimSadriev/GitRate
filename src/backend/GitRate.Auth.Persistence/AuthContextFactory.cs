@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GitRate.Auth.Persistence
 {
+    /// <summary>
+    /// Db context factory for <see cref="AuthContext"/>
+    /// </summary>
     public class AuthContextFactory : DesignTimeDbContextFactoryBase<AuthContext>
     {
         protected override string BasePath => $"{Directory.GetCurrentDirectory()}/../GitRate.Auth.Web";

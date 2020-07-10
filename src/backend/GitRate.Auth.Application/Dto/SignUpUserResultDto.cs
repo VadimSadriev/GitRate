@@ -2,8 +2,10 @@
 
 namespace Auth.Application.Dto
 {
+    /// <summary> Contains data with user creation result </summary>
     public class SignUpUserResultDto
     {
+        /// <summary> Contains data with user creation result </summary>
         public SignUpUserResultDto(string jwt, string refreshToken)
         {
             if (string.IsNullOrEmpty(jwt))
@@ -16,8 +18,10 @@ namespace Auth.Application.Dto
             RefreshToken = refreshToken;
         }
         
+        /// <summary> Json web token for newly created user </summary>
         public string Jwt { get; }
-        
+
+        /// <summary> Refresh token for json web token </summary>
         public string RefreshToken { get; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
+using GitRate.Common.Exceptions;
 using GitRate.Common.Extensions;
 using GitRate.Web.Common.Contracts.Exception;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +18,9 @@ namespace GitRate.Web.Common.Middlewares
         private readonly RequestDelegate _next;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Handles all exceptions occured during web request
+        /// </summary>
         public ErrorMiddleware(RequestDelegate next, IMapper mapper)
         {
             _next = next;
@@ -41,7 +45,9 @@ namespace GitRate.Web.Common.Middlewares
 
             switch (ex)
             {
-                // to be continued
+                case EntityNotFoundException notFoundEx:
+                    code = StatusCodes.Status404NotFound;
+                    break;
             }
 
             httpContext.Response.StatusCode = code;

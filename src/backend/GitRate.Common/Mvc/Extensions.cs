@@ -7,8 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GitRate.Common.Mvc
 {
+    /// <summary>
+    /// Extensions for Mvc configuration
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Adds configured mvc to aspnet project
+        /// </summary>
         public static IMvcBuilder AddCustomMvc(this IServiceCollection services, IConfiguration configuration, Assembly rootAssembly)
         {
             return services.AddControllers(options =>

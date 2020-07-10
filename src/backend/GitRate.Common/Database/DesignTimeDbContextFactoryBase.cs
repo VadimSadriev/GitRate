@@ -6,13 +6,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace GitRate.Common.Database
 {
+    /// <summary> Design time factory for <see cref="DbContext"/> to manipulate with migrations, db during develop </summary>
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
+        /// <summary> Base path for asp net core settings </summary>
         protected abstract string BasePath { get;}
+
+        /// <summary> Aspnet core environment </summary>
         private string AspNetCoreEnvironment = "Development";
 
+        /// <summary> Implemented in concrete factory to create new <see cref="TContext"/> </summary>
         protected abstract TContext CreateContext(DbContextOptions<TContext> options);
 
+        /// <summary> Creates new <see cref="TContext"/> </summary>
         public TContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()

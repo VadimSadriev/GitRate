@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace GitRate.Common.Extensions
 {
+    /// <summary>
+    /// Extensions for <see cref="Assembly"/>
+    /// </summary>
     public static class AssemblyExtensions
     {
         private static readonly Func<AssemblyName, bool> ApplicationAssembliesCondition = assemblyName => assemblyName.FullName.StartsWith("GitRate");

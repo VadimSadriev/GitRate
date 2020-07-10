@@ -6,8 +6,14 @@ using Serilog;
 
 namespace GitRate.Common.Logging
 {
+    /// <summary>
+    /// Extensions for logging
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Adds serilog to Di
+        /// </summary>
         public static IServiceCollection AddCustomLogging(this IServiceCollection services, IConfiguration configuration)
         {
             var loggingSection = configuration.GetSection("Logging").CheckExistence();

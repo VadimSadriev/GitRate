@@ -24,6 +24,9 @@ namespace Auth.Application.Services
         private readonly AuthContext _context;
         private readonly ILogger<UserManagerService> _logger;
 
+        /// <summary>
+        /// Service for managing application users
+        /// </summary>
         public UserManagerService(
             UserManager<User> userManager,
             ITimeProvider timeProvider,

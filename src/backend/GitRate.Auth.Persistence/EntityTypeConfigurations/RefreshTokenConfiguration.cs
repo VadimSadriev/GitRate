@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GitRate.Auth.Persistence.EntityTypeConfigurations
 {
+    /// <summary>
+    /// Ef core configuration for <see cref="RefreshToken"/>
+    /// </summary>
     public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
     {
         public void Configure(EntityTypeBuilder<RefreshToken> builder)

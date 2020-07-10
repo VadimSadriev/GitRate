@@ -8,8 +8,14 @@ using Microsoft.Extensions.Options;
 
 namespace Auth.Application.Validators
 {
+    /// <summary>
+    /// Validates <see cref="SignUpUserCommand"/>
+    /// </summary>
     public class SignUpUserCommandValidator : AbstractValidator<SignUpUserCommand>
     {
+        /// <summary>
+        /// Validates <see cref="SignUpUserCommand"/>
+        /// </summary>
         public SignUpUserCommandValidator(AuthContext context, IOptions<IdentityOptions> identityOptions)
         {
             RuleFor(x => x.UserName)

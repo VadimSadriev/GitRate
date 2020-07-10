@@ -2,8 +2,10 @@
 
 namespace GitRate.Common.Authentication
 {
+    /// <summary> Contains data for newly created json web token </summary>
     public class JsonWebToken
     {
+        /// <summary> Contains data for newly created json web token </summary>
         public JsonWebToken(string jti, string token)
         {
             if (string.IsNullOrEmpty(jti))
@@ -16,7 +18,10 @@ namespace GitRate.Common.Authentication
             Token = token;
         }
         
+        /// <summary> Json web token identifier </summary>
         public string Jti { get; }
+
+        /// <summary> Actual json web token </summary>
         public string Token { get; }
     }
 }
