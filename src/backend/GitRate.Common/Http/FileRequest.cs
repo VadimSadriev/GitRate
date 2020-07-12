@@ -13,13 +13,18 @@ namespace GitRate.Common.Http
         public string FileName { get; set; }
 
         /// <summary>
-        /// File stream
+        /// Name for a content body part name
         /// </summary>
-        public Stream FileStream { get; set; }
+        public string ContentBodyPartName { get; set; } = "file";
 
         /// <summary>
         /// Type of this file
         /// </summary>
         public string ContentType { get; set; } = HttpConstants.MimeTypes.Octet;
+
+        /// <summary>
+        /// File stream
+        /// </summary>
+        public Stream FileStream { get; set; }
     }
 }
