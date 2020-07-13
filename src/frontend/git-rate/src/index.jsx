@@ -12,13 +12,13 @@ import { SnackbarProvider } from 'notistack';
 const history = createBrowserHistory({ basename: "/" });
 
 const initialState = {
-  // auth: {
-  //   isLogged: true,
-  //   user:{
-  //       userName: 'Ahri',
-  //       email: 'Ahri@gmail.com'
-  //   }
-  // }
+  auth: {
+    isLogged: true,
+    user:{
+        userName: 'Ahri',
+        email: 'Ahri@gmail.com'
+    }
+  }
 };
 
 const store = configureStore(initialState, history);

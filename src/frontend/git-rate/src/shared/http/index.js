@@ -48,7 +48,7 @@ export const setupReduxResponseInterceptor = store => {
                     tryRefreshJwt()
                     .then(resp => {
                         if (resp){
-                            authSuccess();
+                            store.dispatch(authSuccess());
                         }
                         else{
                             store.dispatch(authFail());
