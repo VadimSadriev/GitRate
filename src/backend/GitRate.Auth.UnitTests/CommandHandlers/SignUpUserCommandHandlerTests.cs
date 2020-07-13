@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Auth.Application.Commands;
@@ -48,7 +50,7 @@ namespace GitRate.Auth.UnitTests.CommandHandlers
                 .Setup(x => x.GenerateRefreshTokenAsync(user.Id, jwtToken.Jti))
                 .ReturnsAsync("refreshToken");
             
-            _jwtServiceMock.Setup(x => x.Create(user.Id, null))
+            _jwtServiceMock.Setup(x => x.Create(user.Id, It.IsAny<List<Claim>>()))
                 .Returns(jwtToken);
 
             var command = new SignUpUserCommand
