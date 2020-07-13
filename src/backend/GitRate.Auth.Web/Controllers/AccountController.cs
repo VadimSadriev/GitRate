@@ -33,8 +33,7 @@ namespace GitRate.Auth.Web.Controllers
         }
 
         /// <summary> Authenticates user in system </summary>
-        [HttpPost]
-        [Route("signin")]
+        [HttpPost("signin")]
         [ProducesResponseType(typeof(SignInUserResultDto), StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(ExceptionContract))]
         public async Task<IActionResult> SignIn([FromBody] SignInUserCommand command)
@@ -45,8 +44,7 @@ namespace GitRate.Auth.Web.Controllers
         }
 
         /// <summary> Refreshes expired json web token </summary>
-        [HttpPost]
-        [Route("refresh-token")]
+        [HttpPost("refresh-token")]
         [ProducesResponseType(typeof(RefreshJwtResultDto), StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(ExceptionContract))]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshJwtCommand command)
