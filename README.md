@@ -7,3 +7,4 @@
 - ReactJs
 
 https://developer.github.com/v3/
+query example: https://api.github.com/search/repositories?q=git-rate&sort=stars&order=asc
