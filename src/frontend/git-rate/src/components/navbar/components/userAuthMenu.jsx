@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import {
-    Typography,
     Button,
-    Collapse,
-    List,
-    ListItem,
-    ListItemText,
-    Menu,
     MenuItem,
     Popper,
     Grow,
@@ -14,7 +8,6 @@ import {
     Paper,
     MenuList
 } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 function UserAuthMenu(props) {
 
