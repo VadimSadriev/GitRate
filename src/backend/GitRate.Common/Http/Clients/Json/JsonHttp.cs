@@ -5,12 +5,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitRate.Common.Http
+namespace GitRate.Common.Http.Clients.Json
 {
     /// <summary>
     /// Http client to interact with external services via json
     /// </summary>
-    public class JsonHttp : Http
+    public class JsonHttp : Http, IJsonHttp
     {
         /// <summary>
         /// Http client to interact with external services via json

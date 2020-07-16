@@ -1,6 +1,7 @@
 using System.Reflection;
 using GitRate.Common.Authentication;
 using GitRate.Common.Database;
+using GitRate.Common.Http;
 using GitRate.Common.Logging;
 using GitRate.Common.Mapping;
 using GitRate.Common.MediatR;
@@ -39,6 +40,7 @@ namespace GitRate.Web.Api
             services.AddMappingProfiles(Assembly.GetExecutingAssembly());
             services.AddJwt(Configuration);
             services.AddSingleton<ITimeProvider, TimeProvider>();
+            services.AddGithubHttp(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
