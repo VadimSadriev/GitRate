@@ -45,7 +45,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitRate.Persistence", "GitR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitRate.Application", "GitRate.Application\GitRate.Application.csproj", "{2572FC45-3758-4AE8-9D92-6CD7B05F2558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.Common.IntegrationTests", "GitRate.Common.IntegrationTests\GitRate.Common.IntegrationTests.csproj", "{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitRate.Common.IntegrationTests", "GitRate.Common.IntegrationTests\GitRate.Common.IntegrationTests.csproj", "{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CD3D5812-2BDB-4B11-BF69-E6D267634BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.IntergrationTests", "GitRate.IntergrationTests\GitRate.IntergrationTests.csproj", "{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitRate.UnitTests", "GitRate.UnitTests\GitRate.UnitTests.csproj", "{4D06A4C1-1084-4CFB-9AD5-31FD6676006B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +115,14 @@ Global
 		{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D06A4C1-1084-4CFB-9AD5-31FD6676006B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D06A4C1-1084-4CFB-9AD5-31FD6676006B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D06A4C1-1084-4CFB-9AD5-31FD6676006B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D06A4C1-1084-4CFB-9AD5-31FD6676006B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +147,9 @@ Global
 		{4F95A989-B8AD-4B93-AE8C-681C4167EFA2} = {30D6CD46-01B8-4AA4-A227-61C3F049EAD3}
 		{2572FC45-3758-4AE8-9D92-6CD7B05F2558} = {F061D060-253D-4A92-B055-CCE9FDDF92B5}
 		{7C424BEA-A1D5-4A1C-97D5-18641C8ED0FC} = {14004070-24B3-4D99-ABDC-D631638CDC18}
+		{CD3D5812-2BDB-4B11-BF69-E6D267634BB3} = {F061D060-253D-4A92-B055-CCE9FDDF92B5}
+		{0E39B5F1-FCFA-4E11-B141-EEB4FF0F5ACF} = {CD3D5812-2BDB-4B11-BF69-E6D267634BB3}
+		{4D06A4C1-1084-4CFB-9AD5-31FD6676006B} = {CD3D5812-2BDB-4B11-BF69-E6D267634BB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC2E28E2-0FBC-4526-B2EE-E6318FC06331}
