@@ -1,9 +1,13 @@
 ﻿using GitRate.Common.Extensions;
+using GitRate.Common.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GitRate.Common.Authentication
 {
@@ -38,8 +42,30 @@ namespace GitRate.Common.Authentication
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options => options.TokenValidationParameters = tokenValidationParameters);
-        
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = tokenValidationParameters;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnChallenge = async context =>
+                        {
+                            //var body = new
+                            //{
+                            //    jwt = "token",
+                            //    refresh_token = "refresh_token"
+                            //};
+
+                            //var ser = body.Serialize();
+                            //await context.HttpContext.Response.WriteAsync(ser);
+                            //context.HandleResponse();
+                        },
+                        OnAuthenticationFailed = async context =>
+                        {
+                          //  context.Principal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[0], "Bearer"));
+                            //context.Success();
+                        }
+                    };
+                });
 
             return services;
         }

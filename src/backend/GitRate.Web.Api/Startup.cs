@@ -52,7 +52,8 @@ namespace GitRate.Web.Api
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseErrorMiddleware();
 
             app.UseSwaggerDocs(Configuration);

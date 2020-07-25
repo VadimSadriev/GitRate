@@ -24,6 +24,7 @@ namespace GitRate.Web.Api.Controllers
         /// Returns popular repos
         /// </summary>
         [AllowAnonymous]
+        [HttpGet("popular")]
         public async Task<IActionResult> GetPopularRepos()
         {
             return Ok(await _mediator.Send(new GetPopularReposQuery()));

@@ -21,9 +21,9 @@ namespace GitRate.Application.Handlers.Repository
             {
                 TotalCount = 1,
                 Items = new List<RepoItemDto>
-               {
-                   new RepoItemDto { Name = "Fake repository" }
-               }
+                   {
+                       new RepoItemDto { Name = "Fake repository" }
+                   }
             };
         }
     }
