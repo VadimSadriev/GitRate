@@ -11,14 +11,14 @@ namespace GitRate.Application.Handlers.Repository
     /// <summary>
     /// Handles <see cref="GetPopularReposQuery"/>
     /// </summary>
-    public class GetPopularReposQueryHandler : IRequestHandler<GetPopularReposQuery, PopularReposResponseDto>
+    public class GetPopularReposQueryHandler : IRequestHandler<GetPopularReposQuery, SearchRepositoryResponseDto>
     {
         /// <summary>
-        /// Handles <see cref="GetPopularReposQuery"/> and returns <see cref="PopularReposResponseDto"/>
+        /// Handles <see cref="GetPopularReposQuery"/> and returns <see cref="SearchRepositoryResponseDto"/>
         /// </summary>
-        public async Task<PopularReposResponseDto> Handle(GetPopularReposQuery request, CancellationToken cancellationToken)
+        public async Task<SearchRepositoryResponseDto> Handle(GetPopularReposQuery request, CancellationToken cancellationToken)
         {
-            return new PopularReposResponseDto
+            return new SearchRepositoryResponseDto
             {
                 TotalCount = 1,
                 Items = new List<RepoItemDto>
