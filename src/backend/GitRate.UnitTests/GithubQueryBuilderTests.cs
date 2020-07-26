@@ -17,5 +17,19 @@ namespace GitRate.UnitTests
 
             resultQuery.ToString().Should().Be($"{githubApi}?q=git-rate");
         }
+
+        [Fact]
+        public void Should_Build_With_Multiple_Queries()
+        {
+            var query = GithubSpecifications.WithKeyword("git-rate");
+
+            var sortQuery = new GithubQuery("sort=stars");
+
+            var orderQuery = new GithubQuery("order=asc");
+
+            var resultQuery = query & sortQuery & orderQuery;
+
+            resultQuery.ToString().Should().Be($"q=git-rate&sort=stars&order=asc");
+        }
     }
 }

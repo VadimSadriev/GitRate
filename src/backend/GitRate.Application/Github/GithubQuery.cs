@@ -15,6 +15,11 @@
             _queryString = query;
         }
 
+        public static GithubQuery operator &(GithubQuery query1, GithubQuery query2)
+        {
+            return new GithubQuery($"{query1._queryString}&{query2._queryString}");
+        }
+
         /// <summary>
         /// String representation of this query
         /// </summary>
