@@ -1,5 +1,4 @@
 ﻿using GitRate.Application.Dto.Repository;
-using GitRate.Application.Github;
 using GitRate.Application.Queries.Repository;
 using MediatR;
 using System.Collections.Generic;

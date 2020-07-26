@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using GitRate.Application.Github;
-using GitRate.Common.Extensions;
 using Xunit;
 
 namespace GitRate.UnitTests

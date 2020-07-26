@@ -10,9 +10,9 @@
         /// <summary>
         /// Contains data for querying github recourses
         /// </summary>
-        public GithubQuery(string name)
+        public GithubQuery(string query)
         {
-            _queryString = name;
+            _queryString = query;
         }
 
         /// <summary>
