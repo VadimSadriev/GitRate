@@ -1,4 +1,6 @@
-﻿namespace GitRate.Application.Github
+﻿using GitRate.Application.Dto;
+
+namespace GitRate.Application.Github
 {
     /// <summary>
     /// Contains data for querying github recourses
@@ -6,6 +8,7 @@
     public class GithubQuery
     {
         private string _queryString;
+        private string _queryCriteria;
 
         /// <summary>
         /// Contains data for querying github recourses
@@ -19,6 +22,15 @@
         {
             return new GithubQuery($"{query1._queryString}&{query2._queryString}");
         }
+
+        /// <summary>
+        /// Adds criteria to query to concrete search result
+        /// </summary>
+        public void WithCriteria(string criteria)
+        {
+            _queryCriteria = criteria;
+        }
+
 
         /// <summary>
         /// String representation of this query

@@ -1,5 +1,9 @@
 ﻿using FluentAssertions;
 using GitRate.Application.Github;
+using GitRate.Common.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 using Xunit;
 
 namespace GitRate.UnitTests

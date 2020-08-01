@@ -1,11 +1,13 @@
 ﻿using GitRate.Application.Enums;
+using System;
 
 namespace GitRate.Application.Dto
 {
     /// <summary>
     /// Contains data to search github resources
     /// </summary>
-    public abstract class GithubSearchDto
+    public abstract class GithubSearchDto<TRepositorySearchCriteria>
+         where TRepositorySearchCriteria : Enum
     {
         /// <summary>
         /// Keyword to search
@@ -23,5 +25,10 @@ namespace GitRate.Application.Dto
         public string Sort { get; set; }
 
         public Order? Order { get; set; }
+
+        /// <summary>
+        /// Search criteria's to concrete search result
+        /// </summary>
+        public GithubSearchCriteriaDto<TRepositorySearchCriteria> Criteria { get; set; }
     }
 }

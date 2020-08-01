@@ -22,7 +22,7 @@ namespace GitRate.Common.Extensions
         /// </summary>
         static JsonSerializerExtensions()
         {
-            DefaultJsonOptions.Converters.Add(new JsonStringEnumConverter());
+            DefaultJsonOptions.Converters.Add(new JsonStringEnumMemberConverter());
         }
 
         /// <summary>
