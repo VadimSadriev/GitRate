@@ -26,9 +26,11 @@ namespace GitRate.Application.Github
         /// <summary>
         /// Adds criteria to query to concrete search result
         /// </summary>
-        public void WithCriteria(string criteria)
+        public GithubQuery WithCriteria(string criteria)
         {
             _queryCriteria = criteria;
+
+            return this;
         }
 
 
@@ -37,7 +39,9 @@ namespace GitRate.Application.Github
         /// </summary>
         public override string ToString()
         {
-            return _queryString;
+            return string.IsNullOrWhiteSpace(_queryCriteria)
+                ? _queryString
+                : $"{_queryString}+{_queryCriteria}";
         }
     }
 }

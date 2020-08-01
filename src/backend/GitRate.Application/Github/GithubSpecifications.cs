@@ -6,9 +6,18 @@
     public static class GithubSpecifications
     {
         /// <summary>
-        /// Returns string with required query parameter
+        /// Returns query with required query parameter
         /// </summary>
-        /// <param name="keyword">Keyword to search</param>
         public static GithubQuery WithKeyword(string keyword) => new GithubQuery($"q={keyword}");
+
+        /// <summary>
+        /// Returns query with sorting
+        /// </summary>
+        public static GithubQuery WithSort(string sortWord) => new GithubQuery($"sort={sortWord}");
+
+        /// <summary>
+        /// Returns query with order
+        /// </summary>
+        public static GithubQuery WithOrder(string order) => new GithubQuery($"order={order}");
     }
 }

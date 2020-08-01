@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GitRate.Application.Extensions;
 using GitRate.Application.Github;
 using GitRate.Common.Extensions;
 using Newtonsoft.Json;
@@ -27,13 +28,22 @@ namespace GitRate.UnitTests
         {
             var query = GithubSpecifications.WithKeyword("git-rate");
 
-            var sortQuery = new GithubQuery("sort=stars");
-
-            var orderQuery = new GithubQuery("order=asc");
-
-            var resultQuery = query & sortQuery & orderQuery;
+            var resultQuery = query
+                .WithSort("stars")
+                .WithOrder("asc");
 
             resultQuery.ToString().Should().Be($"q=git-rate&sort=stars&order=asc");
+        }
+
+        [Fact]
+        public void Should_Build_With_Criteria()
+        {
+            var query = GithubSpecifications.WithKeyword("git-rate");
+
+            var resultQuery = query
+                .WithCriteria("user:Alice");
+
+            resultQuery.ToString().Should().Be($"q=git-rate+user:Alice");
         }
     }
 }
