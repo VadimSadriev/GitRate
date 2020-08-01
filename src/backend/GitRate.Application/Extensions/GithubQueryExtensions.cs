@@ -22,13 +22,5 @@ namespace GitRate.Application.Extensions
         {
             return query & GithubSpecifications.WithOrder(order);
         }
-
-        /// <summary>
-        /// Adds criteria to <paramref name="query"/>
-        /// </summary>
-        public static GithubQuery WithCriteria(this GithubQuery query, string criteria)
-        {
-            return query.WithCriteria(criteria);
-        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using GitRate.Application.Dto;
+﻿using System;
 
 namespace GitRate.Application.Github
 {
@@ -7,8 +7,7 @@ namespace GitRate.Application.Github
     /// </summary>
     public class GithubQuery
     {
-        private string _queryString;
-        private string _queryCriteria;
+        protected string _queryString;
 
         /// <summary>
         /// Contains data for querying github recourses
@@ -20,7 +19,9 @@ namespace GitRate.Application.Github
 
         public static GithubQuery operator &(GithubQuery query1, GithubQuery query2)
         {
-            return new GithubQuery($"{query1._queryString}&{query2._queryString}");
+            var query = new GithubQuery($"{query1._queryString}&{query2._queryString}");
+
+            return query;
         }
 
         /// <summary>
@@ -28,20 +29,18 @@ namespace GitRate.Application.Github
         /// </summary>
         public GithubQuery WithCriteria(string criteria)
         {
-            _queryCriteria = criteria;
+            if (string.IsNullOrWhiteSpace(criteria))
+                throw new ArgumentNullException(nameof(criteria), "Criteria for github query cannot be null or empty");
 
-            return this;
+            return new GithubQuery($"{_queryString}+{criteria}");
         }
-
 
         /// <summary>
         /// String representation of this query
         /// </summary>
         public override string ToString()
         {
-            return string.IsNullOrWhiteSpace(_queryCriteria)
-                ? _queryString
-                : $"{_queryString}+{_queryCriteria}";
+            return _queryString;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace GitRate.Application.Github
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace GitRate.Application.Github
 {
     /// <summary>
     /// Specifications for github queries
@@ -9,6 +12,8 @@
         /// Returns query with required query parameter
         /// </summary>
         public static GithubQuery WithKeyword(string keyword) => new GithubQuery($"q={keyword}");
+
+        public static GithubQuery WithKeywords(IEnumerable<string> keywords) => new GithubQuery($"q={string.Join("+", keywords)}");
 
         /// <summary>
         /// Returns query with sorting

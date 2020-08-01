@@ -24,11 +24,11 @@ namespace GitRate.Application.Dto
         /// </summary>
         public string Sort { get; set; }
 
-        public Order? Order { get; set; }
+        public string Order { get; set; }
 
         /// <summary>
         /// Search criteria's to concrete search result
         /// </summary>
-        public GithubSearchCriteriaDto<TRepositorySearchCriteria> Criteria { get; set; }
+        public GithubSearchCriteriaDto<TRepositorySearchCriteria>[] Criterias { get; set; }
     }
 }

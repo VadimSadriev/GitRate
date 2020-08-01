@@ -1,4 +1,6 @@
-﻿namespace GitRate.Application.Enums
+﻿using System.Runtime.Serialization;
+
+namespace GitRate.Application.Enums
 {
     /// <summary>
     /// Order type
@@ -8,11 +10,13 @@
         /// <summary>
         /// Asc ordering
         /// </summary>
+        [EnumMember(Value = "asc")]
         Asc = 0,
 
         /// <summary>
         /// Descend ordering
         /// </summary>
+        [EnumMember(Value = "desc")]
         Desc = 1
     }
 }
